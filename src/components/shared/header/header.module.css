@@ -1,0 +1,78 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  width: 90vw;
+  margin: 0 auto;
+  background-color: black;
+  color: white;
+}
+
+.menu {
+  display: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin: 0 1vw;
+  font-size: 20px;
+}
+
+li:hover {
+  color: red;
+  cursor: pointer;
+}
+
+.logo {
+  height: 50px;
+  width: 50px;
+}
+
+.titulo {
+  display: flex;
+  justify-content: space-between;
+  width: 450px;
+  height: 50px;
+}
+
+.arena {
+  display: none;
+}
+
+.burger {
+  height: 40px;
+  width: 40px;
+  background-color: black;
+  background-image: url('../../../../public/assets/logos/burger.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+@media only screen and (min-width: 701px) {
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+  .arena {
+    display: block;
+    font-size: 40px;
+    margin: 0;
+  }
+  .burger {
+    display: none;
+  }
+  .menu {
+    display: block;
+  }
+  .header {
+    align-items: end;
+  }
+}

@@ -1,0 +1,93 @@
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+}
+
+.empiezaHoy {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vw;
+  width: 100vw;
+  background-image: url('../../../public/assets/images/portada.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.button {
+  margin-top: 30vw;
+}
+
+.btn {
+  border: 1px solid black;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px 0;
+  border: 2px solid white;
+  border-radius: 20px;
+  height: 450px;
+  width: 250px;
+  transition: transform 0.3s ease;
+}
+
+.activityImg {
+  width: 250px;
+  height: 150px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.activityTitle {
+  width: 220px;
+  margin: 15px 0 0 0;
+  font-size: 24px;
+  color: red;
+}
+
+.activityText {
+  width: 220px;
+  font-size: 15px;
+  margin-top: 10px;
+  color: white;
+  text-wrap: pretty;
+}
+
+@media only screen and (min-width: 601px) {
+  .empiezaHoy {
+    height: 30vw;
+  }
+  .button {
+    margin-top: 20vw;
+  }
+  .btn {
+    width: 20vw;
+  }
+  .btn:hover {
+    border-color: red;
+    background-color: black;
+    color: white;
+  }
+
+  .containerCards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100vw;
+  }
+  .card {
+    margin: 50px;
+  }
+  .card:hover {
+    border-color: red;
+    cursor: pointer;
+    transform: translateY(-5px);
+  }
+}
