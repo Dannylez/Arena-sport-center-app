@@ -1,36 +1,67 @@
 .header {
   display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: 59px;
   width: 90vw;
-  margin: 0 auto;
+  border-bottom: 1px solid red;
+  padding: 0 5vw;
   background-color: black;
   color: white;
 }
 
 .menu {
-  display: none;
+  position: fixed;
+  right: 0;
+  top: -25px;
+  height: 100px;
+  width: 360px;
+  padding-top: 15px;
+  pointer-events: none;
+  background-color: black;
+  opacity: 0;
+  transition: top 0.5s ease, opacity 0.4s ease;
 }
 
-ul {
+.menuActive {
+  position: fixed;
+  top: 60px;
+  opacity: 1;
+  pointer-events: auto;
+  transition: top 0.5s ease, opacity 1s ease;
+}
+
+.menu .ul {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-li {
+.li {
   display: inline-block;
   margin: 0 1vw;
   font-size: 20px;
 }
 
-li:hover {
+.li:hover {
   color: red;
   cursor: pointer;
 }
 
 .logo {
+  position: relative;
+  z-index: 1;
   height: 50px;
   width: 50px;
 }
@@ -46,17 +77,45 @@ li:hover {
   display: none;
 }
 
-.burger {
+.burgerMenu {
+  width: 50px;
   height: 40px;
-  width: 40px;
-  background-color: black;
-  background-image: url('../../../../public/assets/logos/burger.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  position: relative;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.burgerLine {
+  width: 35px;
+  height: 4px;
+  margin: 7px 7px;
+  background-color: white;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+.burgerMenuActive {
+  background-color: #333;
+}
+
+.burgerMenuActive .burgerLine {
+  background-color: red;
+}
+
+.noBurger {
+  display: none;
 }
 
 @media only screen and (min-width: 701px) {
+  .header {
+    height: 70px;
+    width: 90vw;
+  }
+
+  .titulo {
+    height: 60px;
+  }
+
   .logo {
     width: 60px;
     height: 60px;
@@ -68,9 +127,6 @@ li:hover {
   }
   .burger {
     display: none;
-  }
-  .menu {
-    display: block;
   }
   .header {
     align-items: end;

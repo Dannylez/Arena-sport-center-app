@@ -1,6 +1,27 @@
+import { useEffect, useState } from 'react';
 import styles from './header.module.css';
+import { Link } from 'react-router-dom';
 
-function Header() {
+function Header(props) {
+  const { menuOpened, setMenuOpened } = props;
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [window.innerWidth]);
+
   return (
     <div className={styles.header}>
       <div className={styles.titulo}>
@@ -11,10 +32,22 @@ function Header() {
         />
         <h1 className={styles.arena}>Arena Sport Center</h1>
       </div>
-      <div className={styles.menu}>
-        <ul>
-          <li>Home</li>
+      {}
+      <div
+        className={
+          windowSize.width <= 700
+            ? menuOpened
+              ? `${styles.menu} ${styles.menuActive}`
+              : `${styles.menu}`
+            : `${styles.bigMenu}`
+        }
+      >
+        <ul className={styles.ul}>
+          <Link to={'/'}>
+            <li className={styles.li}>Home</li>
+          </Link>
           <li
+            className={styles.li}
             onClick={() => {
               window.open(
                 'https://wa.me/+59893804706?text=Quiero%20más%20información',
@@ -24,10 +57,28 @@ function Header() {
           >
             Contacto
           </li>
-          <li>Ingresar</li>
+          <Link to={'/login'}>
+            {' '}
+            <li className={styles.li}>Ingresar</li>
+          </Link>
         </ul>
       </div>
-      <button className={styles.burger}></button>
+      <div
+        className={
+          windowSize.width > 700
+            ? `${styles.noBurger}`
+            : menuOpened
+            ? `${styles.burgerMenu} ${styles.burgerMenuActive}`
+            : `${styles.burgerMenu}`
+        }
+        onClick={() => {
+          setMenuOpened(!menuOpened);
+        }}
+      >
+        <div className={styles.burgerLine}></div>
+        <div className={styles.burgerLine}></div>
+        <div className={styles.burgerLine}></div>
+      </div>
     </div>
   );
 }
