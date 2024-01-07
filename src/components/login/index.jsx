@@ -7,8 +7,7 @@ import Joi from 'joi';
 import axios from 'axios';
 
 function Login() {
-
-/* const loginSchema = Joi.object({
+  /* const loginSchema = Joi.object({
     email: Joi.string(),
     password: Joi.string()
 })
@@ -36,17 +35,21 @@ const onSubmit = async (data) => {
  */
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.form} /* onSubmit={handleSubmit(onSubmit)} */>
         <h2>Ingresar</h2>
         <div className={styles.formField}>
           <label className={styles.formLabel}>Email:</label>
-          <input className={styles.formInput} name={'email'}
-            {...register('email')}></input>
+          <input
+            className={styles.formInput} /* name={'email'}
+            {...register('email')} */
+          ></input>
         </div>
         <div className={styles.formField}>
           <label className={styles.formLabel}>Contraseña:</label>
-          <input className={styles.formInput} name={'password'}
-            {...register('password')}></input>
+          <input
+            className={styles.formInput} /* name={'password'}
+            {...register('password')} */
+          ></input>
         </div>
         <div className={styles.formBtns}>
           <Link to={'/'}>
@@ -54,7 +57,7 @@ const onSubmit = async (data) => {
             <button>Volver</button>
           </Link>
           <Link to={'/schedule'}>
-            <button type='submit' onClick={()}>Trainer</button>
+            <button type='submit' /* onClick={()} */>Trainer</button>
           </Link>
           <Link>Admin</Link>
         </div>
