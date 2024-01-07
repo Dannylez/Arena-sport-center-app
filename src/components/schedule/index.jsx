@@ -7,8 +7,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchMemberById } from '../../redux/member/memberSlice';
 import Modal from '../shared/modal';
 import unsubscribeMember from '../../utils/unsubscribeMember';
+import { Link, useLocation } from 'react-router-dom';
 
 function Schedule() {
+  const location = useLocation();
   const [openModal, setOpenModal] = useState(false);
   const [modalMembers, setModalMembers] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
@@ -34,6 +36,7 @@ function Schedule() {
 
   useEffect(() => {
     dispatch(fetchClasses());
+    console.log(location.state);
   }, []);
 
   useEffect(() => {
@@ -205,7 +208,15 @@ function Schedule() {
               </p>
               <p className={styles.pInfo}> En {onlyClass.room} </p>
             </span>
-            <button className={styles.addBtn}>Agregar</button>
+            <Link
+              /* to={{
+                pathname: '/members',
+                state: { add: true },
+              }} */ to={'/members'}
+              state={{ add: true }}
+            >
+              <button className={styles.addBtn}>Agregar</button>
+            </Link>
           </div>
           <div>
             {onlyClass.members?.map((member) => {

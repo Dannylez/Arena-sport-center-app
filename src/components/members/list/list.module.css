@@ -36,6 +36,10 @@
   padding: 10px 0px;
 }
 
+.addTd {
+  padding: 10px 0;
+}
+
 .trList {
   display: flex;
   justify-content: space-around;
@@ -70,8 +74,9 @@
 
 .addBtn {
   font-size: 12px;
+  background-color: palegreen;
 }
 
 .addBtn:hover {
-  background-color: palegreen;
+  background-color: rgb(208, 253, 208);
 }

@@ -22,6 +22,10 @@ function Header(props) {
     };
   }, [window.innerWidth]);
 
+  const closeMenu = () => {
+    setMenuOpened(false);
+  };
+
   return (
     <div className={styles.header}>
       <div className={styles.titulo}>
@@ -44,7 +48,14 @@ function Header(props) {
       >
         <ul className={styles.ul}>
           <Link to={'/'}>
-            <li className={styles.li}>Home</li>
+            <li
+              className={styles.li}
+              onClick={() => {
+                closeMenu();
+              }}
+            >
+              Home
+            </li>
           </Link>
           <li
             className={styles.li}
@@ -53,13 +64,21 @@ function Header(props) {
                 'https://wa.me/+59893804706?text=Quiero%20más%20información',
                 '_blank',
               );
+              closeMenu();
             }}
           >
             Contacto
           </li>
           <Link to={'/login'}>
             {' '}
-            <li className={styles.li}>Ingresar</li>
+            <li
+              className={styles.li}
+              onClick={() => {
+                closeMenu();
+              }}
+            >
+              Ingresar
+            </li>
           </Link>
         </ul>
       </div>

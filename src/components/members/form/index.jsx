@@ -115,7 +115,7 @@ function MemberForm() {
     try {
       const res = await createMember(data);
       if (res.data) {
-        navigate('/members', { state: res.data.message });
+        navigate('/members', { state: { message: res.data.message } });
       } else {
         setMessageError(res);
       }
@@ -173,6 +173,7 @@ function MemberForm() {
 
   return (
     <div className={styles.container}>
+      <img src='asset'></img>
       <Modal
         isOpen={modalError}
         popUp
@@ -198,7 +199,7 @@ function MemberForm() {
                 : `${styles.error}  ${styles.hidden} `
             }
           >
-            <img src='../' alt='Warning Logo' />
+            <img src='' alt='Warning Logo' />
             <p>{errors.firstName?.message}</p>
           </div>
         </div>
