@@ -1,0 +1,9 @@
+{
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://arena-sport-center-server.vercel.app/",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
+    }
+  ]
+}
