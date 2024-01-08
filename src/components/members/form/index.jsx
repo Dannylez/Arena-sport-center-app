@@ -10,12 +10,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchClasses } from '../../../redux/class/classSlice';
 import { fetchContracts } from '../../../redux/contract/contractSlice';
 import createMember from '../../../utils/createMember';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../shared/modal';
 
 function MemberForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { classes } = useSelector((state) => state.class);
   const { contracts } = useSelector((state) => state.contract);
   const [contractsOptions, setContractsOptions] = useState([]);
@@ -115,12 +116,14 @@ function MemberForm() {
     try {
       const res = await createMember(data);
       if (res.data) {
-        navigate('/members', { state: { message: res.data.message } });
+        navigate('/members', {
+          state: { message: res.data.message, class: location.state.class },
+        });
       } else {
         setMessageError(res);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -173,7 +176,7 @@ function MemberForm() {
 
   return (
     <div className={styles.container}>
-      <img src='asset'></img>
+      <img src='assets/warning.svg' alt='warning'></img>
       <Modal
         isOpen={modalError}
         popUp
@@ -380,7 +383,7 @@ function MemberForm() {
           ''
         )}
         <div className={styles.divBtns}>
-          <Link to={'/members'}>
+          <Link to={'/members'} state={location.state}>
             <button className={`${styles.cancelBtn} ${styles.btn}`}>
               Cancelar
             </button>

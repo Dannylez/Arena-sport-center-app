@@ -7,6 +7,7 @@ import MemberForm from './components/members/form';
 import { Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import Login from './components/login';
+import TrainerProfile from './components/trainers/profile';
 
 function App() {
   const [menuOpened, setMenuOpened] = useState(false);
@@ -23,6 +24,7 @@ function App() {
           <Route path='/schedule' element={<Schedule />} />
           <Route path='/members' element={<MemberList />} />
           <Route path='/members/form' element={<MemberForm />} />
+          <Route path='/trainer/profile' element={<TrainerProfile />} />
           <Route path='/login' element={<Login />} />
         </Routes>
       </div>

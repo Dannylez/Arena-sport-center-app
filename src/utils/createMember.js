@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const createMember = async (member) => {
-  console.log(member);
   try {
     const res = await axios.post(
       `${process.env.REACT_APP_API_URL}/api/member/`,

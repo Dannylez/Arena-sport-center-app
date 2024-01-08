@@ -5,6 +5,7 @@ import styles from './list.module.css';
 import { fetchMembers } from '../../../redux/member/memberSlice';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../shared/modal';
+import subscribeMember from '../../../utils/subscribeMember';
 
 function MemberList() {
   const dispatch = useDispatch();
@@ -19,7 +20,6 @@ function MemberList() {
 
   useEffect(() => {
     dispatch(fetchMembers());
-    console.log(location);
   }, []);
 
   useEffect(() => {
@@ -75,7 +75,7 @@ function MemberList() {
               value={searchTerm}
             ></input>
           </div>
-          <Link to={'/members/form'}>
+          <Link to={'/members/form'} state={location.state}>
             <button className={styles.addBtn}>Agregar</button>
           </Link>
         </div>
@@ -95,9 +95,16 @@ function MemberList() {
                 <td className={styles.td}>{member.lastName}</td>
                 <td className={styles.td}>{member.phone}</td>
                 <td className={styles.addTd}>
-                  {location.state?.add ? (
-                    <Link to={-1}>
-                      <button className={styles.addBtn}>+</button>
+                  {location.state?.class ? (
+                    <Link to={'/schedule'}>
+                      <button
+                        className={styles.addBtn}
+                        onClick={() => {
+                          subscribeMember(member, location.state.class);
+                        }}
+                      >
+                        +
+                      </button>
                     </Link>
                   ) : (
                     ''
