@@ -1,0 +1,76 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 0.1vh solid #ff0000;
+  padding: 0 2vw;
+  background-color: rgba(0, 0, 0, 0.8);
+  height: 9.9vh;
+  color: white;
+}
+
+.address {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pAddress {
+  margin: 0;
+}
+
+.logos {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+}
+
+.back:hover {
+  background-color: #3b5998;
+  cursor: pointer;
+}
+
+.home {
+  height: 35px;
+  width: 35px;
+  background-image: url('../../../../public/assets/logos/home.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.wp {
+  background-image: url('../../../../public/assets/logos/whatsapp.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.fb {
+  background-image: url('../../../../public/assets/logos/facebook.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.ig {
+  background-image: url('../../../../public/assets/logos/instagram.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.back {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+}

@@ -9,7 +9,7 @@ import { addYears, format, subYears } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchClasses } from '../../../redux/class/classSlice';
 import { fetchContracts } from '../../../redux/contract/contractSlice';
-import createMember from '../../../utils/createMember';
+import createMember from '../../../utils/member/createMember';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../shared/modal';
 
@@ -176,7 +176,7 @@ function MemberForm() {
 
   return (
     <div className={styles.container}>
-      <img src='assets/warning.svg' alt='warning'></img>
+      <img src='.' alt='warning'></img>
       <Modal
         isOpen={modalError}
         popUp

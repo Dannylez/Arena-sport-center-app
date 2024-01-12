@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import styles from './header.module.css';
 import { Link } from 'react-router-dom';
@@ -39,7 +40,7 @@ function Header(props) {
       {}
       <div
         className={
-          windowSize.width <= 700
+          windowSize.width <= 720
             ? menuOpened
               ? `${styles.menu} ${styles.menuActive}`
               : `${styles.menu}`
@@ -61,7 +62,7 @@ function Header(props) {
             className={styles.li}
             onClick={() => {
               window.open(
-                'https://wa.me/+59893804706?text=Quiero%20más%20información',
+                'https://wa.me/+59893638947?text=Quiero%20más%20información',
                 '_blank',
               );
               closeMenu();

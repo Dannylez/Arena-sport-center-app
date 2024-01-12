@@ -1,0 +1,98 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 98vw;
+  color: white;
+  margin: 20px;
+  border-radius: 10px;
+  background-color: #444;
+}
+
+.titleForm {
+  text-align: center;
+  color: red;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 500px;
+}
+
+.formField {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 80vw;
+  height: 40px;
+}
+
+.selectField {
+  flex-wrap: wrap;
+  height: auto;
+}
+
+.formLabel {
+  flex: 1;
+}
+
+.formInput {
+  padding: 0;
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 40vw;
+  height: 20px;
+}
+
+.formSelect {
+  width: 80vw;
+  height: auto;
+}
+
+.divBtns {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
+  width: 70vw;
+  height: 50px;
+}
+
+.cancelBtn {
+  background-color: red;
+  color: white;
+}
+
+.addBtn {
+  background-color: palegreen;
+}
+
+.btn {
+  width: 30vw;
+  height: 40px;
+}
+
+.btn:hover {
+  box-shadow: 0 0 5px white;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  margin: 0;
+  color: #f23f4285;
+  font-weight: bo;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+/* .hidden {
+    height: 30px;
+    visibility: hidden;
+  } */

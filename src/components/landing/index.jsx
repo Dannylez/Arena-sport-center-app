@@ -9,7 +9,7 @@ function Landing() {
             className={styles.btn}
             onClick={() => {
               window.open(
-                'https://wa.me/+59893804706?text=Quiero%20más%20información',
+                'https://wa.me/+59893638947?text=Quiero%20más%20información',
                 '_blank',
               );
             }}
@@ -23,7 +23,7 @@ function Landing() {
           className={styles.card}
           onClick={() => {
             window.open(
-              'https://wa.me/+59893804706?text=Quiero%20más%20información%20de%20Cross%20Funcional',
+              'https://wa.me/+59893638947?text=Quiero%20más%20información%20de%20Cross%20Funcional',
               '_blank',
             );
           }}
@@ -44,7 +44,7 @@ function Landing() {
           className={styles.card}
           onClick={() => {
             window.open(
-              'https://wa.me/+59893804706?text=Quiero%20más%20información%20de%20Karate',
+              'https://wa.me/+59893638947?text=Quiero%20más%20información%20de%20Karate',
               '_blank',
             );
           }}
@@ -66,7 +66,7 @@ function Landing() {
           className={styles.card}
           onClick={() => {
             window.open(
-              'https://wa.me/+59893804706?text=Quiero%20más%20información%20de%20Zumba',
+              'https://wa.me/+59893638947?text=Quiero%20más%20información%20de%20Zumba',
               '_blank',
             );
           }}
@@ -87,7 +87,7 @@ function Landing() {
           className={styles.card}
           onClick={() => {
             window.open(
-              'https://wa.me/+59893804706?text=Quiero%20más%20información%20de%20Gimnasia%20Terapéutica',
+              'https://wa.me/+59893638947?text=Quiero%20más%20información%20de%20Gimnasia%20Terapéutica',
               '_blank',
             );
           }}
@@ -108,7 +108,7 @@ function Landing() {
           className={styles.card}
           onClick={() => {
             window.open(
-              'https://wa.me/+59893804706?text=Quiero%20más%20información%20de%20Kick%20Boxing',
+              'https://wa.me/+59893638947?text=Quiero%20más%20información%20de%20Kick%20Boxing',
               '_blank',
             );
           }}

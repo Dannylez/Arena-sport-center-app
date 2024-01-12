@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './login.module.css';
 import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+/* import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
-import axios from 'axios';
+import axios from 'axios'; */
 
 function Login() {
   /* const loginSchema = Joi.object({
@@ -59,7 +59,9 @@ const onSubmit = async (data) => {
           <Link to={'/schedule'}>
             <button type='submit' /* onClick={()} */>Trainer</button>
           </Link>
-          <Link>Admin</Link>
+          <Link to={'/admin/schedule'}>
+            <button>Admin</button>
+          </Link>
         </div>
       </form>
     </div>

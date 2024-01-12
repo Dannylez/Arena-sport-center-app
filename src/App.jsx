@@ -8,6 +8,8 @@ import { Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import Login from './components/login';
 import TrainerProfile from './components/trainers/profile';
+import ClassForm from './components/admin/class-form';
+import Footer from './components/shared/footer';
 
 function App() {
   const [menuOpened, setMenuOpened] = useState(false);
@@ -22,12 +24,15 @@ function App() {
         <Routes>
           <Route path='/' element={<Landing />} />
           <Route path='/schedule' element={<Schedule />} />
+          <Route path='/class/form' element={<ClassForm />}></Route>
+          <Route path='/admin/schedule' element={<Schedule />} />
           <Route path='/members' element={<MemberList />} />
           <Route path='/members/form' element={<MemberForm />} />
           <Route path='/trainer/profile' element={<TrainerProfile />} />
           <Route path='/login' element={<Login />} />
         </Routes>
       </div>
+      <Footer />
     </div>
   );
 }

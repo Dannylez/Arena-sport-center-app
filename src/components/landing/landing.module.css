@@ -3,6 +3,9 @@
   flex-direction: column;
   align-items: center;
   width: 100vw;
+  background-image: url('../../../public/assets/images/background.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .empiezaHoy {
@@ -34,6 +37,7 @@
   border-radius: 20px;
   height: 450px;
   width: 250px;
+  background-color: rgba(0, 0, 0, 0.7);
   transition: transform 0.3s ease;
 }
 

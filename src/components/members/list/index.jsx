@@ -5,7 +5,7 @@ import styles from './list.module.css';
 import { fetchMembers } from '../../../redux/member/memberSlice';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../shared/modal';
-import subscribeMember from '../../../utils/subscribeMember';
+import subscribeMember from '../../../utils/member/subscribeMember';
 
 function MemberList() {
   const dispatch = useDispatch();
