@@ -32,7 +32,7 @@ function Header(props) {
       <div className={styles.titulo}>
         <img
           className={styles.logo}
-          src='assets/logos/gym-logo.jpeg'
+          src='assets/logos/gym-logo.png'
           alt='logo'
         />
         <h1 className={styles.arena}>Arena Sport Center</h1>
