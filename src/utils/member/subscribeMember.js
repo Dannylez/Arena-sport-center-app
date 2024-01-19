@@ -1,13 +1,12 @@
 import axios from 'axios';
-
-const url = process.env.REACT_APP_API_URL;
+import { REACT_APP_API_URL } from '../../constants';
 
 const addMember = async (member, classy) => {
   const memberId = member._id;
   const classId = classy._id;
   const classMembers = [...classy.members, memberId];
   try {
-    await axios.put(`${url}/api/class/${classId}`, {
+    await axios.put(`${REACT_APP_API_URL}/api/class/${classId}`, {
       members: classMembers,
     });
     return true;
@@ -21,7 +20,7 @@ const addClass = async (member, classy) => {
   const classId = classy._id;
   const memberClasses = [...member.classes, classId];
   try {
-    await axios.put(`${url}/api/member/${memberId}`, {
+    await axios.put(`${REACT_APP_API_URL}/api/member/${memberId}`, {
       classes: memberClasses,
     });
     return true;

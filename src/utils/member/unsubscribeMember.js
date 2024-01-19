@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const url = process.env.REACT_APP_API_URL;
+import { REACT_APP_API_URL } from '../../constants';
 
 const removeMember = async (member, classy) => {
   const memberId = member._id;
@@ -10,7 +9,7 @@ const removeMember = async (member, classy) => {
     (member) => member._id !== memberId,
   );
   try {
-    await axios.put(`${url}/api/class/${classId}`, {
+    await axios.put(`${REACT_APP_API_URL}/api/class/${classId}`, {
       members: newClassMembers,
     });
     return true;
@@ -27,7 +26,7 @@ const removeClass = async (member, classy) => {
     (classy) => classy._id !== classId,
   );
   try {
-    await axios.put(`${url}/api/member/${memberId}`, {
+    await axios.put(`${REACT_APP_API_URL}/api/member/${memberId}`, {
       classes: newMemberClasses,
     });
     return true;

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { REACT_APP_API_URL } from '../../constants';
 
 const initialState = {
   loadingTrainer: false,
@@ -8,9 +9,7 @@ const initialState = {
 };
 
 const fetchTrainers = createAsyncThunk('trainer/fetchTrainers', () =>
-  axios
-    .get(`${process.env.REACT_APP_API_URL}/api/trainer`)
-    .then((res) => res.data.data),
+  axios.get(`${REACT_APP_API_URL}/api/trainer`).then((res) => res.data.data),
 );
 
 const trainersSlice = createSlice({

@@ -1,14 +1,11 @@
 import axios from 'axios';
+import { REACT_APP_API_URL } from '../../constants';
 
 const createClass = async (classy) => {
   try {
-    const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/api/class/`,
-      classy,
-      {
-        headers: { 'Content-Type': 'application/json' },
-      },
-    );
+    const res = await axios.post(`${REACT_APP_API_URL}/api/class/`, classy, {
+      headers: { 'Content-Type': 'application/json' },
+    });
     return res;
   } catch (error) {
     if (error.response) {

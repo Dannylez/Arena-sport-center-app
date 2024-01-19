@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { REACT_APP_API_URL } from '../../constants';
 
 const deleteClass = async (classId) => {
   try {
     const res = await axios.delete(
-      `${process.env.REACT_APP_API_URL}/api/class/${classId}`,
+      `${REACT_APP_API_URL}/api/class/${classId}`,
       {
         headers: { 'Content-Type': 'application/json' },
       },
