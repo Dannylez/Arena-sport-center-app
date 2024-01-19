@@ -62,7 +62,7 @@ function ClassForm() {
     setValue('startsAt', inputs.startsAt || '');
     setValue('endsAt', inputs.endsAt || '');
     setValue('room', inputs.room || '');
-    setValue('trainer', inputs.trainer._id || '');
+    setValue('trainer', inputs.trainer?._id || '');
   }, [inputs]);
 
   const onSubmit = async (data) => {
