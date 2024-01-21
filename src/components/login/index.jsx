@@ -1,54 +1,60 @@
 import React from 'react';
 import styles from './login.module.css';
-import { Link } from 'react-router-dom';
-/* import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import Joi from 'joi';
-import axios from 'axios'; */
+import { login } from '../../utils/auth';
+import { useDispatch } from 'react-redux';
+import { verifyUser } from '../../redux/auth/authSlice';
 
 function Login() {
-  /* const loginSchema = Joi.object({
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const loginSchema = Joi.object({
     email: Joi.string(),
-    password: Joi.string()
-})
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-      } = useForm({
-        mode: 'onChange',
-        resolver: joiResolver(loginSchema),
-      });
+    password: Joi.string(),
+  });
+  const {
+    register,
+    handleSubmit,
+    /* formState: { errors }, */
+  } = useForm({
+    mode: 'onChange',
+    resolver: joiResolver(loginSchema),
+  });
 
-const onSubmit = async (data) => {
-    console.log(data);
-    try{ 
-        const trainers = await axios
-        .get(`${process.env.REACT_APP_API_URL}/api/trainer`);
-        const user = trainers.data.find((trainer) => trainer.email === data.email)
-        if(user) {const isPasswordMatch = await user.comparePassword(data.password)}
-        console.log(isPasswordMatch)
+  const onSubmit = async (data) => {
+    try {
+      const res = await login(data);
+      dispatch(verifyUser);
+      if (res === 'Sesión iniciada') {
+        navigate('/schedule');
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-
- catch(error) {console.log(error)}
- */
   return (
     <div className={styles.container}>
-      <form className={styles.form} /* onSubmit={handleSubmit(onSubmit)} */>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <h2>Ingresar</h2>
         <div className={styles.formField}>
           <label className={styles.formLabel}>Email:</label>
           <input
-            className={styles.formInput} /* name={'email'}
-            {...register('email')} */
+            className={styles.formInput}
+            name={'email'}
+            {...register('email')}
           ></input>
         </div>
         <div className={styles.formField}>
           <label className={styles.formLabel}>Contraseña:</label>
           <input
-            className={styles.formInput} /* name={'password'}
-            {...register('password')} */
+            className={styles.formInput}
+            name={'password'}
+            {...register('password')}
           ></input>
         </div>
         <div className={styles.formBtns}>
@@ -56,12 +62,7 @@ const onSubmit = async (data) => {
             {' '}
             <button>Volver</button>
           </Link>
-          <Link to={'/schedule'}>
-            <button type='submit' /* onClick={()} */>Trainer</button>
-          </Link>
-          <Link to={'/admin/schedule'}>
-            <button>Admin</button>
-          </Link>
+          <button type='submit'>Aceptar</button>
         </div>
       </form>
     </div>

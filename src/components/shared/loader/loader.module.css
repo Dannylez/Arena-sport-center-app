@@ -1,0 +1,23 @@
+/* Loader.css */
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Ajusta según sea necesario */
+}
+
+/* Define la animación de rotación */
+.rotate {
+  width: 100px;
+  animation: rotate 1s linear infinite; /* Puedes ajustar la duración y el tipo de animación */
+}
+
+/* Keyframes para la animación de rotación */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

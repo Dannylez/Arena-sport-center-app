@@ -1,18 +1,28 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Header from './components/shared/header';
 import styles from './app.module.css';
 import Schedule from './components/schedule';
 import Landing from './components/landing';
 import MemberList from './components/members/list';
 import MemberForm from './components/members/form';
-import { Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Login from './components/login';
 import TrainerProfile from './components/trainers/profile';
 import ClassForm from './components/admin/class-form';
 import Footer from './components/shared/footer';
+import { useDispatch } from 'react-redux';
+import { verifyUser } from './redux/auth/authSlice';
+import Loader from './components/shared/loader';
 
 function App() {
+  const location = useLocation();
+  const dispatch = useDispatch();
   const [menuOpened, setMenuOpened] = useState(false);
+
+  useEffect(() => {
+    dispatch(verifyUser());
+  }, [location.pathname]);
 
   return (
     <div>
@@ -25,11 +35,11 @@ function App() {
           <Route path='/' element={<Landing />} />
           <Route path='/schedule' element={<Schedule />} />
           <Route path='/class/form' element={<ClassForm />}></Route>
-          <Route path='/admin/schedule' element={<Schedule />} />
           <Route path='/members' element={<MemberList />} />
           <Route path='/members/form' element={<MemberForm />} />
           <Route path='/trainer/profile' element={<TrainerProfile />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/loader' element={<Loader />} />
         </Routes>
       </div>
       <Footer />

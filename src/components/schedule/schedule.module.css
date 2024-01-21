@@ -1,37 +1,58 @@
 .container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 98vw;
   border-radius: 10px;
-  background-color: #444;
+  margin: 10px 0;
+  background-color: #aaa;
+  min-height: 80vh;
 }
-
+.loader {
+  position: relative;
+  z-index: 1;
+}
 .grilla {
-  color: white;
+  color: black;
   width: 100%;
   padding: 10px 0;
 }
 
-table {
+.table {
   border-collapse: collapse;
   margin: auto;
   width: 95%;
+  border-bottom: 1px solid black;
 }
 
 .empty,
 .activeClass {
-  border: 1px dotted white;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px 1px 0;
   width: 16vw;
+}
+
+.interHour {
+  border: none;
+  border-color: black;
+  border-style: solid;
+  border-width: 0 1px;
+}
+.hours {
+  border-color: black;
+  border-style: solid;
+  border-width: 1px 1px 0;
 }
 
 .empty {
   width: 5vw;
 }
 .activeClass {
-  background-color: #444;
+  background-color: palegreen;
   text-align: center;
-  border: 1px solid white;
+  border: 1px solid black;
 }
 
 .th,
@@ -55,9 +76,11 @@ table {
 }
 
 .modalContent {
+  position: relative;
   display: flex;
   flex-direction: column;
   text-align: center;
+  z-index: 2;
 }
 
 .nombreClase {
@@ -80,7 +103,7 @@ table {
   justify-content: space-between;
   align-items: center;
   height: 50px;
-  border-bottom: 1px dotted white;
+  border-bottom: 1px dotted black;
 }
 
 .memberSpan {
@@ -96,7 +119,7 @@ table {
 }
 
 .removeBtn:hover {
-  color: white;
+  color: black;
   background-color: red;
 }
 
@@ -105,7 +128,7 @@ table {
   justify-content: space-between;
   align-items: center;
   height: 80px;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid black;
 }
 
 .addBtn {
@@ -122,7 +145,7 @@ table {
   align-self: center;
   margin-top: 20px;
   background-color: red;
-  color: white;
+  color: black;
   cursor: pointer;
   border: none;
 }
@@ -153,9 +176,7 @@ table {
     width: 80vw;
     height: 820px;
   }
-  .table {
-    border-bottom: 1px dashed white;
-  }
+
   .td {
     font-size: 20px;
   }
@@ -165,10 +186,6 @@ table {
   }
   .empty,
   .activeClass {
-    border: none;
-    border-color: white;
-    border-style: dashed;
-    border-width: 1px 1px 0;
     height: 11px;
     width: 14vw;
     overflow: hidden;
@@ -176,24 +193,12 @@ table {
   }
   .activeClass {
     border-width: 1px;
-    background-color: rgba(141, 112, 103, 0.404);
   }
   .activeClass:hover {
-    color: white;
-    background-color: red;
+    background-color: rgb(183, 248, 177);
     cursor: pointer;
-    border: 1px solid black;
-  }
-
-  .interHour {
-    border: none;
-    border-color: white;
-    border-style: dashed;
-    border-width: 0 1px;
   }
   .hours {
-    border-color: white;
-    border-style: dashed;
     font-size: 24px;
     border-width: 1px 1px 0;
   }

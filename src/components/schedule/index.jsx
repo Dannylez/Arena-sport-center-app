@@ -7,12 +7,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchMemberById } from '../../redux/member/memberSlice';
 import Modal from '../shared/modal';
 import unsubscribeMember from '../../utils/member/unsubscribeMember';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import deleteClass from '../../utils/class/deleteClass';
+import Loader from '../shared/loader';
 
 function Schedule() {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
 
   const [openModal, setOpenModal] = useState(false);
@@ -25,7 +27,8 @@ function Schedule() {
 
   const [deleteMode, setDeleteMode] = useState(false);
 
-  const { classes, onlyClass, errorClass } = useSelector(
+  const { loadingAuth, role } = useSelector((state) => state.auth);
+  const { loadingClass, classes, onlyClass, errorClass } = useSelector(
     (state) => state.class,
   );
   const { member, errorMember } = useSelector((state) => state.member);
@@ -42,7 +45,7 @@ function Schedule() {
 
   useEffect(() => {
     dispatch(fetchClasses());
-    if (location.pathname.includes('admin')) {
+    if (role === 'ADMIN') {
       setIsAdmin(true);
     }
   }, []);
@@ -56,12 +59,16 @@ function Schedule() {
     }
   }, [errorClass, errorMember]);
 
-  /*   useEffect(() => {
-    if (location.state.message) {
-      setSuccessMessage(location.state.message);
-
+  useEffect(() => {
+    dispatch(fetchClasses());
+    if (!role && !loadingAuth && classes.length !== 0) {
+      console.log(role, classes, loadingAuth);
+      navigate('/', { state: { error: 'Sesión expirada' } });
     }
-  }); */
+    if (role === 'ADMIN') {
+      setIsAdmin(true);
+    }
+  }, [loadingAuth]);
 
   useEffect(() => {
     if (successMessage) {
@@ -171,6 +178,51 @@ function Schedule() {
 
   return (
     <div>
+      <div className={styles.container}>
+        {classes.length === 0 && loadingClass ? (
+          <div className={styles.loader}>
+            <Loader></Loader>
+          </div>
+        ) : (
+          <>
+            {' '}
+            <div className={styles.grilla}>{generateTable({ classes })}</div>
+            <div
+              className={isAdmin ? `${styles.isAdmin}` : `${styles.notAdmin}`}
+            >
+              <Link to='/class/form'>
+                <button className={styles.newClassBtn}> Crear Clase</button>
+              </Link>
+              <button
+                className={styles.deleteClassBtn}
+                onClick={() => {
+                  setDeleteMode(!deleteMode);
+                }}
+              >
+                {' '}
+                Eliminar Clase
+              </button>
+            </div>{' '}
+          </>
+        )}
+      </div>
+      <Modal
+        isOpen={modalError}
+        popUp
+        onClose={() => setModalError(false)}
+        error
+      >
+        {errorClass ? <p>Error: {errorClass}</p> : ''}
+        {errorMember ? <p>Error: {errorMember}</p> : ''}
+      </Modal>
+      <Modal
+        isOpen={modalSuccess}
+        popUp
+        onClose={() => setModalSuccess(false)}
+        success
+      >
+        {successMessage}
+      </Modal>
       <Modal
         isOpen={openModal}
         onClose={() => {
@@ -336,40 +388,6 @@ function Schedule() {
           </button>
           <button onClick={() => setModalDeleteMember(false)}>Cancelar</button>
         </div>
-      </Modal>
-      <div className={styles.container}>
-        <div className={styles.grilla}>{generateTable({ classes })}</div>
-        <div className={isAdmin ? `${styles.isAdmin}` : `${styles.notAdmin}`}>
-          <Link to='/class/form'>
-            <button className={styles.newClassBtn}> Crear Clase</button>
-          </Link>
-          <button
-            className={styles.deleteClassBtn}
-            onClick={() => {
-              setDeleteMode(!deleteMode);
-            }}
-          >
-            {' '}
-            Eliminar Clase
-          </button>
-        </div>
-      </div>
-      <Modal
-        isOpen={modalError}
-        popUp
-        onClose={() => setModalError(false)}
-        error
-      >
-        {errorClass ? <p>Error: {errorClass}</p> : ''}
-        {errorMember ? <p>Error: {errorMember}</p> : ''}
-      </Modal>
-      <Modal
-        isOpen={modalSuccess}
-        popUp
-        onClose={() => setModalSuccess(false)}
-        success
-      >
-        {successMessage}
       </Modal>
     </div>
   );

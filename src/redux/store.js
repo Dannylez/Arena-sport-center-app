@@ -4,6 +4,7 @@ import { membersReducer } from './member/memberSlice';
 import { contractsReducer } from './contract/contractSlice';
 import { activitiesReducer } from './activity/activitySlice';
 import { trainersReducer } from './trainer/trainerSlice';
+import { authReducer } from './auth/authSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     class: classReducer,
     member: membersReducer,
     contract: contractsReducer,
+    auth: authReducer,
   },
 });
 

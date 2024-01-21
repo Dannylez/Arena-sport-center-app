@@ -1,8 +1,36 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
 import styles from './landing.module.css';
+import { useLocation } from 'react-router-dom';
+import Modal from '../shared/modal';
 
 function Landing() {
+  const location = useLocation();
+
+  const [errorModal, setErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    if (location.state?.error) {
+      setErrorMessage(location.state?.error);
+      setErrorModal(true);
+      setTimeout(async () => {
+        setErrorModal(false);
+        setErrorMessage('');
+      }, 3000);
+    }
+  }, []);
+
   return (
     <div className={styles.landing}>
+      <Modal
+        isOpen={errorModal}
+        popUp
+        onClose={() => setErrorModal(false)}
+        error
+      >
+        {errorMessage}
+      </Modal>
       <div className={styles.empiezaHoy}>
         <div className={styles.button}>
           <button
