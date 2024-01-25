@@ -16,6 +16,7 @@ function Schedule() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isTrainer, setIsTrainer] = useState(false);
 
   const [openModal, setOpenModal] = useState(false);
   const [modalMembers, setModalMembers] = useState(false);
@@ -27,7 +28,7 @@ function Schedule() {
 
   const [deleteMode, setDeleteMode] = useState(false);
 
-  const { loadingAuth, role } = useSelector((state) => state.auth);
+  const { loadingAuth, role, user } = useSelector((state) => state.auth);
   const { loadingClass, classes, onlyClass, errorClass } = useSelector(
     (state) => state.class,
   );
@@ -45,9 +46,6 @@ function Schedule() {
 
   useEffect(() => {
     dispatch(fetchClasses());
-    if (role === 'ADMIN') {
-      setIsAdmin(true);
-    }
   }, []);
 
   useEffect(() => {
@@ -62,11 +60,13 @@ function Schedule() {
   useEffect(() => {
     dispatch(fetchClasses());
     if (!role && !loadingAuth && classes.length !== 0) {
-      console.log(role, classes, loadingAuth);
-      navigate('/', { state: { error: 'Sesión expirada' } });
+      navigate('/', { state: { error: 'Acceso denegado' } });
     }
     if (role === 'ADMIN') {
       setIsAdmin(true);
+    }
+    if (role === 'TRAINER') {
+      setIsTrainer(true);
     }
   }, [loadingAuth]);
 
@@ -108,7 +108,11 @@ function Schedule() {
         <td
           key={`${day}-${hour}`}
           className={
-            deleteMode
+            isTrainer && classToShow.trainer._id === user
+              ? `${styles.activeClass} ${styles.td}`
+              : isTrainer && classToShow.trainer !== user
+              ? `${styles.td} ${styles.inactiveClass}`
+              : deleteMode
               ? `${styles.deleteClass} ${styles.activeClass} ${styles.td}`
               : `${styles.activeClass} ${styles.td}`
           }
@@ -116,10 +120,14 @@ function Schedule() {
           onClick={() => {
             if (deleteMode) {
               setModalDeleteClass(true);
-            } else {
+              dispatch(fetchClassById(classToShow._id));
+            } else if (
+              (isTrainer && classToShow.trainer._id === user) ||
+              isAdmin
+            ) {
               setOpenModal(true);
+              dispatch(fetchClassById(classToShow._id));
             }
-            dispatch(fetchClassById(classToShow._id));
           }}
         >
           {classToShow.activity?.name}
@@ -260,9 +268,13 @@ function Schedule() {
               {' '}
               Ver alumnos
             </button>
-            <Link to={'/class/form'} state={{ id: onlyClass._id }}>
-              <button>Editar clase</button>
-            </Link>
+            {isAdmin ? (
+              <Link to={'/class/form'} state={{ id: onlyClass._id }}>
+                <button>Editar clase</button>
+              </Link>
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </Modal>

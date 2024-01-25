@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const login = async (body) => {
   try {
-    console.log(process.env.REACT_APP_API_URL);
     const res = await axios.post(
       `${process.env.REACT_APP_API_URL}/api/auth/`,
       body,
@@ -17,6 +16,10 @@ const login = async (body) => {
   }
 };
 
+const logout = () => {
+  localStorage.removeItem('token');
+};
+
 const verifyToken = async (token) => {
   try {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/auth/`, {
@@ -28,4 +31,4 @@ const verifyToken = async (token) => {
   }
 };
 
-export { login, verifyToken };
+export { login, logout, verifyToken };

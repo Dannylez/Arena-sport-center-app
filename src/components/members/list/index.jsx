@@ -12,14 +12,19 @@ function MemberList() {
   const location = useLocation();
   const navigate = useNavigate();
   const { members } = useSelector((state) => state.member);
+  const { role } = useSelector((state) => state.auth);
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
   const [filteredMembers, setFilteredMembers] = useState([]);
   const [successModal, setSuccessModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     dispatch(fetchMembers());
+    if (role === 'ADMIN') {
+      setIsAdmin(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -75,7 +80,7 @@ function MemberList() {
               value={searchTerm}
             ></input>
           </div>
-          <Link to={'/members/form'} state={location.state}>
+          <Link to={'/members/form'} state={{ class: location.state.class }}>
             <button className={styles.addBtn}>Agregar</button>
           </Link>
         </div>
@@ -84,16 +89,22 @@ function MemberList() {
             <tr className={styles.trHead}>
               <th className={styles.th}>Nombre</th>
               <th className={styles.th}>Apellido</th>
-              <th className={styles.th}>Telefono</th>
-              <th className={styles.th}></th>
+              <th className={styles.th}>CI</th>
+              <th className={styles.thEmpty}></th>
             </tr>
           </thead>
           <tbody>
             {filteredMembers.map((member) => (
-              <tr key={member?._id} className={styles.trList}>
+              <tr
+                key={member?._id}
+                className={styles.trList}
+                onClick={() =>
+                  navigate('./form', { state: { id: member?._id } })
+                }
+              >
                 <td className={styles.td}>{member.firstName}</td>
                 <td className={styles.td}>{member.lastName}</td>
-                <td className={styles.td}>{member.phone}</td>
+                <td className={styles.td}>{member.ci}</td>
                 <td className={styles.addTd}>
                   {location.state?.class ? (
                     <Link to={'/schedule'}>

@@ -21,7 +21,8 @@ function App() {
   const [menuOpened, setMenuOpened] = useState(false);
 
   useEffect(() => {
-    dispatch(verifyUser());
+    const token = localStorage.getItem('token');
+    dispatch(verifyUser(token));
   }, [location.pathname]);
 
   return (

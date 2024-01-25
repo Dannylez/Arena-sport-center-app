@@ -1,14 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import styles from './header.module.css';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../../utils/auth';
+import { verifyUser } from '../../../redux/auth/authSlice';
 
 function Header(props) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { menuOpened, setMenuOpened } = props;
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
+
+  const { role } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,6 +41,7 @@ function Header(props) {
           className={styles.logo}
           src='/assets/logos/gym-logo.png'
           alt='logo'
+          onClick={() => navigate('/')}
         />
         <h1 className={styles.arena}>Arena Sport Center</h1>
       </div>
@@ -47,41 +55,221 @@ function Header(props) {
             : `${styles.bigMenu}`
         }
       >
-        <ul className={styles.ul}>
-          <Link to={'/'}>
-            <li
-              className={styles.li}
-              onClick={() => {
-                closeMenu();
-              }}
-            >
-              Home
-            </li>
-          </Link>
-          <li
-            className={styles.li}
-            onClick={() => {
-              window.open(
-                'https://wa.me/+59893638947?text=Quiero%20más%20información',
-                '_blank',
-              );
-              closeMenu();
-            }}
-          >
-            Contacto
-          </li>
-          <Link to={'/login'}>
+        {role === 'ADMIN' ? (
+          <ul className={styles.ul}>
             {' '}
+            <NavLink
+              to={'/'}
+              style={({ isActive }) => {
+                return isActive ? { color: 'red' } : {};
+              }}
+            >
+              <li
+                className={styles.li}
+                onClick={() => {
+                  closeMenu();
+                }}
+              >
+                Home
+              </li>
+            </NavLink>
+            <NavLink
+              to={'/schedule'}
+              style={({ isActive }) => {
+                return isActive ? { color: 'red' } : {};
+              }}
+            >
+              <li
+                className={styles.li}
+                onClick={() => {
+                  closeMenu();
+                }}
+              >
+                {' '}
+                Clases{' '}
+              </li>
+            </NavLink>
+            <NavLink
+              to={'/members'}
+              style={({ isActive }) => {
+                return isActive ? { color: 'red' } : {};
+              }}
+            >
+              <li
+                className={styles.li}
+                onClick={() => {
+                  closeMenu();
+                }}
+              >
+                {' '}
+                Alumnos{' '}
+              </li>
+            </NavLink>
+            <NavLink
+              to={'/trainers'}
+              style={({ isActive }) => {
+                return isActive ? { color: 'red' } : {};
+              }}
+            >
+              <li
+                className={styles.li}
+                onClick={() => {
+                  closeMenu();
+                }}
+              >
+                {' '}
+                Profesores{' '}
+              </li>
+            </NavLink>
+            <NavLink
+              to={'/contracts'}
+              style={({ isActive }) => {
+                return isActive ? { color: 'red' } : {};
+              }}
+            >
+              <li
+                className={styles.li}
+                onClick={() => {
+                  closeMenu();
+                }}
+              >
+                {' '}
+                Contratos{' '}
+              </li>
+            </NavLink>
             <li
               className={styles.li}
               onClick={() => {
+                logout();
+                closeMenu();
+                dispatch(verifyUser());
+                navigate('/');
+              }}
+            >
+              {' '}
+              Cerrar sesión{' '}
+            </li>
+          </ul>
+        ) : (
+          ''
+        )}
+        {role === 'TRAINER' ? (
+          <ul className={styles.ul}>
+            {' '}
+            <NavLink
+              to={'/'}
+              style={({ isActive }) => {
+                return isActive ? { color: 'red' } : {};
+              }}
+            >
+              <li
+                className={styles.li}
+                onClick={() => {
+                  closeMenu();
+                }}
+              >
+                Home
+              </li>
+            </NavLink>
+            <NavLink
+              to={'/schedule'}
+              style={({ isActive }) => {
+                return isActive ? { color: 'red' } : {};
+              }}
+            >
+              <li
+                className={styles.li}
+                onClick={() => {
+                  closeMenu();
+                }}
+              >
+                {' '}
+                Clases{' '}
+              </li>
+            </NavLink>
+            <NavLink
+              to={'/members'}
+              style={({ isActive }) => {
+                return isActive ? { color: 'red' } : {};
+              }}
+            >
+              <li
+                className={styles.li}
+                onClick={() => {
+                  closeMenu();
+                }}
+              >
+                {' '}
+                Alumnos{' '}
+              </li>
+            </NavLink>
+            <Link to={'/'}>
+              <li
+                className={styles.li}
+                onClick={() => {
+                  logout();
+                  closeMenu();
+                  dispatch(verifyUser());
+                }}
+              >
+                {' '}
+                Cerrar sesión{' '}
+              </li>
+            </Link>
+          </ul>
+        ) : (
+          ''
+        )}
+        {!role ? (
+          <ul className={styles.ul}>
+            <NavLink
+              to={'/'}
+              style={({ isActive }) => {
+                return isActive ? { color: 'red' } : {};
+              }}
+            >
+              <li
+                className={styles.li}
+                onClick={() => {
+                  closeMenu();
+                }}
+              >
+                Home
+              </li>
+            </NavLink>
+            <li
+              className={styles.li}
+              onClick={() => {
+                window.open(
+                  'https://wa.me/+59893638947?text=Quiero%20más%20información',
+                  '_blank',
+                );
                 closeMenu();
               }}
             >
-              Ingresar
+              Contacto
             </li>
-          </Link>
-        </ul>
+            <NavLink
+              to={'/login'}
+              style={({ isActive }) => {
+                return isActive ? { color: 'red' } : {};
+              }}
+              g
+            >
+              {' '}
+              <li
+                className={styles.li}
+                onClick={() => {
+                  closeMenu();
+                }}
+              >
+                Ingresar
+              </li>
+            </NavLink>
+          </ul>
+        ) : (
+          ''
+        )}
       </div>
       <div
         className={

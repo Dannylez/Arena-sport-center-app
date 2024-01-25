@@ -52,7 +52,6 @@ function ClassForm() {
       const classy = classes.find((item) => item._id === location.state.id);
       const { _id, __v, members, ...newImput } = classy;
       setInputs(newImput);
-      console.log(inputs);
     }
   }, []);
 
@@ -66,10 +65,11 @@ function ClassForm() {
   }, [inputs]);
 
   const onSubmit = async (data) => {
+    console.log(data);
     try {
       const res = await createClass(data);
       if (res.data) {
-        navigate('/admin/schedule', {
+        navigate('/schedule', {
           state: { message: res.data.message },
         });
       } else {

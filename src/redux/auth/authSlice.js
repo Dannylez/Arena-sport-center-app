@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { verifyToken } from '../../utils/auth';
+import axios from 'axios';
 
 const initialState = {
   loadingAuth: false,
@@ -7,14 +7,18 @@ const initialState = {
   role: '',
 };
 
-const token = localStorage.getItem('token');
-
-const verifyUser = createAsyncThunk('auth/verifyUser', async () => {
+const verifyUser = createAsyncThunk('auth/verifyUser', async (token) => {
   try {
-    const res = await verifyToken(token);
-    if (res) {
-      console.log(res.data?.message);
-      return res.data?.message;
+    if (token) {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/auth/`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      if (res) {
+        return res.data?.message;
+      }
     }
   } catch (error) {
     console.error(error);

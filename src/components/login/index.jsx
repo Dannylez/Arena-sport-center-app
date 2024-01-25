@@ -28,12 +28,13 @@ function Login() {
   const onSubmit = async (data) => {
     try {
       const res = await login(data);
-      dispatch(verifyUser);
+      const token = localStorage.getItem('token');
+      dispatch(verifyUser(token));
       if (res === 'Sesión iniciada') {
         navigate('/schedule');
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

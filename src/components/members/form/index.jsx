@@ -5,13 +5,14 @@ import { useController, useForm } from 'react-hook-form';
 import Joi from 'joi';
 import Select from 'react-select';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { addYears, format, subYears } from 'date-fns';
+import { addYears, format, parse, subYears } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchClasses } from '../../../redux/class/classSlice';
 import { fetchContracts } from '../../../redux/contract/contractSlice';
 import createMember from '../../../utils/member/createMember';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../shared/modal';
+import { fetchMemberById } from '../../../redux/member/memberSlice';
 
 function MemberForm() {
   const dispatch = useDispatch();
@@ -19,9 +20,12 @@ function MemberForm() {
   const location = useLocation();
   const { classes } = useSelector((state) => state.class);
   const { contracts } = useSelector((state) => state.contract);
+  const { member } = useSelector((state) => state.member);
+
   const [contractsOptions, setContractsOptions] = useState([]);
   const [modalError, setModalError] = useState(false);
   const [messageError, setMessageError] = useState('');
+  const [inputs, setInputs] = useState([]);
 
   const maxBirthDay = format(subYears(new Date(), 3), 'yyyy-MM-dd');
   const minBirthDay = format(subYears(new Date(), 100), 'yyy-MM-dd');
@@ -35,9 +39,9 @@ function MemberForm() {
       .pattern(/^[a-zA-Z-]+$/)
       .messages({
         'string.pattern.base': 'El nombre solo puede contener letras',
-        'string.min.base': 'El nombre debe contener al menos 3 caracteres',
-        'string.max.base': 'El nombre no puede tener mas de 15 caracteres',
-        'string.required.base': 'Campo obligatorio',
+        'string.min': 'El nombre debe contener al menos 3 caracteres',
+        'string.max': 'El nombre no puede tener mas de 15 caracteres',
+        'string.required': 'Campo obligatorio',
       }),
     lastName: Joi.string()
       .required()
@@ -46,9 +50,9 @@ function MemberForm() {
       .pattern(/^[a-zA-Z-]+$/)
       .messages({
         'string.pattern.base': 'El apellido solo puede contener letras',
-        'string.min.base': 'El apellido debe contener al menos 3 caracteres',
-        'string.max.base': 'El apellido no puede tener mas de 25 caracteres',
-        'string.required.base': 'Campo obligatorio',
+        'string.min': 'El apellido debe contener al menos 3 caracteres',
+        'string.max': 'El apellido no puede tener mas de 25 caracteres',
+        'string.required': 'Campo obligatorio',
       }),
     ci: Joi.string()
       .required()
@@ -57,20 +61,22 @@ function MemberForm() {
       .pattern(/^[0-9]+$/)
       .messages({
         'string.pattern.base': 'Cédula de identidad sin puntos ni guiones',
-        'string.min.base': 'Debe contener 7 u 8 números',
-        'string.max.base': 'Debe contener 7 u 8 números',
-        'string.required.base': 'Campo obligatorio',
+        'string.min': 'Debe contener 7 u 8 números',
+        'string.max': 'Debe contener 7 u 8 números',
+        'string.required': 'Campo obligatorio',
       }),
     phone: Joi.string()
       .min(7)
       .max(15)
+      .allow('')
       .pattern(/^[0-9]+$/)
       .messages({
         'string.pattern.base': 'Solo se aceptan números',
-        'string.min.base': 'Debe contener al menos 7 números',
-        'string.max.base': 'Número de teléfono demasiado largo',
+        'string.min': 'Debe contener al menos 7 números',
+        'string.max': 'Número de teléfono demasiado largo',
       }),
     email: Joi.string()
+      .allow('')
       .pattern(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/)
       .messages({ 'string.pattern.base': 'Formato de Email inválido' }),
     birthDay: Joi.date().required().min(minBirthDay).max(maxBirthDay).messages({
@@ -78,12 +84,14 @@ function MemberForm() {
       'date.min': 'El alumno no puede tener mas de 100 años',
       'date.max': 'El alumno no puede tener menos de 3 años',
     }),
-    medService: Joi.string().min(2).max(25).messages({
-      'string.min.base': 'Debe contener al menos 2 caracteres',
-      'string.max.base': 'Debe contener menos de 25 caracteres',
+    medService: Joi.string().allow('').min(2).max(25).messages({
+      'string.min': 'Debe contener al menos 2 caracteres',
+      'string.max': 'Debe contener menos de 25 caracteres',
     }),
     healthCardUpToDate: Joi.boolean(),
-    healthCardVigency: Joi.date().min(minVigencyDate).max(maxVigencyDate),
+    healthCardVigency: Joi.date().allow('').min(minVigencyDate).messages({
+      'date.min': 'No ingresar carnets vencidos',
+    }),
     classes: Joi.array().items(Joi.string()),
     contracts: Joi.array().items(Joi.string()),
   });
@@ -92,13 +100,21 @@ function MemberForm() {
     register,
     handleSubmit,
     watch,
+    setValue,
     onChange,
     control,
-    formState: { errors },
+    formState: { errors, touchedFields },
   } = useForm({
     mode: 'onChange',
     resolver: joiResolver(createSchema),
+    defaultValues: inputs,
   });
+
+  const formatDate = (date) => {
+    const dateParsed = parse(date, 'dd/MM/yyyy', new Date());
+    const dateFormated = format(dateParsed, 'yyyy-MM-dd');
+    return dateFormated;
+  };
 
   const watchAllFields = watch();
 
@@ -126,6 +142,8 @@ function MemberForm() {
       console.error(error);
     }
   };
+
+  const onError = (errors) => console.error(errors);
 
   const classesOptions = classes.map((clase) => ({
     value: clase._id,
@@ -158,12 +176,29 @@ function MemberForm() {
   useEffect(() => {
     dispatch(fetchClasses());
     dispatch(fetchContracts());
+    if (location.state?.id) {
+      dispatch(fetchMemberById(location.state.id));
+    }
   }, []);
 
-  /*   useEffect(() => {
-    console.log(errors);
-  }, [errors]);
- */
+  useEffect(() => {
+    if (Object.keys(member).length !== 0 && location.state?.id) {
+      const { _id, __v, ...newImput } = member;
+      setInputs(newImput);
+    }
+  }, [member]);
+
+  useEffect(() => {
+    if (Object.keys(inputs).length !== 0 && location.state?.id) {
+      setValue('firstName', inputs.firstName || '');
+      setValue('lastName', inputs.lastName || '');
+      setValue('ci', inputs.ci || '');
+      setValue('phone', inputs.phone || '');
+      setValue('email', inputs.email || '');
+      setValue('birthDay', formatDate(inputs.birthDay) || '');
+    }
+  }, [inputs]);
+
   useEffect(() => {
     if (messageError !== '') {
       setModalError(true);
@@ -174,19 +209,22 @@ function MemberForm() {
     }
   });
 
+  useEffect(() => {
+    console.log(touchedFields, errors);
+  }, [touchedFields]);
+
   return (
     <div className={styles.container}>
-      <img src='.' alt='warning'></img>
       <Modal
         isOpen={modalError}
         popUp
         onClose={() => setModalError(false)}
         error
       >
-        <p>Error: {messageError}</p>
+        <p className={styles.errorMsg}>Error: {messageError}</p>
       </Modal>
       <h2 className={styles.titleForm}>Agregar un alumno</h2>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit, onError)}>
         <div className={styles.formField}>
           <label className={styles.formLabel}>Nombre:</label>
           <input
@@ -197,13 +235,13 @@ function MemberForm() {
           ></input>
           <div
             className={
-              errors.firstName?.message
+              errors.firstName?.message && touchedFields.firstName
                 ? `${styles.error}`
                 : `${styles.error}  ${styles.hidden} `
             }
           >
-            <img src='' alt='Warning Logo' />
-            <p>{errors.firstName?.message}</p>
+            <img src='/assets/logos/warning.svg' alt='Warning Logo' />
+            <p className={styles.errorMsg}>{errors.firstName?.message}</p>
           </div>
         </div>
         <div className={styles.formField}>
@@ -214,15 +252,16 @@ function MemberForm() {
             onChange={onChange}
             {...register('lastName')}
           ></input>
-          <p
+          <div
             className={
-              errors.lastName?.message
+              errors.lastName?.message && touchedFields.lastName
                 ? `${styles.error}`
-                : `${styles.error} ${styles.hidden}`
+                : `${styles.error}  ${styles.hidden} `
             }
           >
-            {errors.lastName?.message}
-          </p>
+            <img src='/assets/logos/warning.svg' alt='Warning Logo' />
+            <p className={styles.errorMsg}>{errors.lastName?.message}</p>
+          </div>
         </div>
         <div className={styles.formField}>
           <label className={styles.formLabel}>CI:</label>
@@ -232,15 +271,16 @@ function MemberForm() {
             onChange={onChange}
             {...register('ci')}
           ></input>
-          <p
+          <div
             className={
-              errors.ci?.message
+              errors.ci?.message && touchedFields.ci
                 ? `${styles.error}`
-                : `${styles.error} ${styles.hidden}`
+                : `${styles.error}  ${styles.hidden} `
             }
           >
-            {errors.ci?.message}
-          </p>
+            <img src='/assets/logos/warning.svg' alt='Warning Logo' />
+            <p className={styles.errorMsg}>{errors.ci?.message}</p>
+          </div>
         </div>
         <div className={styles.formField}>
           <label className={styles.formLabel}>Teléfono:</label>
@@ -250,15 +290,16 @@ function MemberForm() {
             onChange={onChange}
             {...register('phone')}
           ></input>
-          <p
+          <div
             className={
-              errors.phone?.message
+              errors.phone?.message && touchedFields.phone
                 ? `${styles.error}`
-                : `${styles.error} ${styles.hidden}`
+                : `${styles.error}  ${styles.hidden} `
             }
           >
-            {errors.phone?.message}
-          </p>
+            <img src='/assets/logos/warning.svg' alt='Warning Logo' />
+            <p className={styles.errorMsg}>{errors.phone?.message}</p>
+          </div>
         </div>
         <div className={styles.formField}>
           <label className={styles.formLabel}>Email:</label>
@@ -268,15 +309,16 @@ function MemberForm() {
             onChange={onChange}
             {...register('email')}
           ></input>
-          <p
+          <div
             className={
-              errors.email?.message
+              errors.email?.message && touchedFields.email
                 ? `${styles.error}`
-                : `${styles.error} ${styles.hidden}`
+                : `${styles.error}  ${styles.hidden} `
             }
           >
-            {errors.email?.message}
-          </p>
+            <img src='/assets/logos/warning.svg' alt='Warning Logo' />
+            <p className={styles.errorMsg}>{errors.email?.message}</p>
+          </div>
         </div>
         <div className={styles.formField}>
           <label className={styles.formLabel}>Fecha de nacimiento:</label>
@@ -287,15 +329,16 @@ function MemberForm() {
             {...register('birthDay')}
             type='date'
           ></input>
-          <p
+          <div
             className={
-              errors.birthDay?.message
+              errors.birthDay?.message && touchedFields.birthDay
                 ? `${styles.error}`
-                : `${styles.error} ${styles.hidden}`
+                : `${styles.error}  ${styles.hidden} `
             }
           >
-            {errors.birthDay?.message}
-          </p>
+            <img src='/assets/logos/warning.svg' alt='Warning Logo' />
+            <p className={styles.errorMsg}>{errors.birthDay?.message}</p>
+          </div>
         </div>
         <div className={styles.formField}>
           <label className={styles.formLabel}>Servicio médico:</label>
@@ -305,15 +348,16 @@ function MemberForm() {
             onChange={onChange}
             {...register('medService')}
           ></input>
-          <p
+          <div
             className={
-              errors.medService?.message
+              errors.medService?.message && touchedFields.medService
                 ? `${styles.error}`
-                : `${styles.error} ${styles.hidden}`
+                : `${styles.error}  ${styles.hidden} `
             }
           >
-            {errors.medService?.message}
-          </p>
+            <img src='/assets/logos/warning.svg' alt='Warning Logo' />
+            <p className={styles.errorMsg}>{errors.medService?.message}</p>
+          </div>
         </div>
         <div className={styles.formField}>
           <label className={styles.formLabel}>Carnet de salud:</label>
@@ -330,15 +374,19 @@ function MemberForm() {
             {...register('healthCardVigency')}
             type='date'
           ></input>
-          <p
+          <div
             className={
-              errors.healthCardVigency?.message
+              errors.healthCardVigency?.message &&
+              touchedFields.healthCardVigency
                 ? `${styles.error}`
-                : `${styles.error} ${styles.hidden}`
+                : `${styles.error}  ${styles.hidden} `
             }
           >
-            {errors.healthCardVigency?.message}
-          </p>
+            <img src='/assets/logos/warning.svg' alt='Warning Logo' />
+            <p className={styles.errorMsg}>
+              {errors.healthCardVigency?.message}
+            </p>
+          </div>
         </div>
         <div className={`${styles.formField} ${styles.selectField}`}>
           <label className={styles.formLabel}>Clases:</label>
