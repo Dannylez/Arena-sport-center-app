@@ -80,7 +80,7 @@ function MemberList() {
               value={searchTerm}
             ></input>
           </div>
-          <Link to={'/members/form'} state={{ class: location.state.class }}>
+          <Link to={'/members/form'} state={{ class: location.state?.class }}>
             <button className={styles.addBtn}>Agregar</button>
           </Link>
         </div>
@@ -111,7 +111,7 @@ function MemberList() {
                       <button
                         className={styles.addBtn}
                         onClick={() => {
-                          subscribeMember(member, location.state.class);
+                          subscribeMember(member, location.state?.class);
                         }}
                       >
                         +
