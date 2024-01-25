@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { REACT_APP_API_URL } from '../../constants';
 
 const initialState = {
   loadingClass: false,
@@ -10,18 +9,20 @@ const initialState = {
 };
 
 const fetchClasses = createAsyncThunk('class/fetchClasses', () =>
-  axios.get(`${REACT_APP_API_URL}/api/class`).then((res) => res.data.data),
+  axios
+    .get(`${process.env.REACT_APP_API_URL}/api/class`)
+    .then((res) => res.data.data),
 );
 
 const fetchClassById = createAsyncThunk('class/fetchClassById', (id) =>
   axios
-    .get(`${REACT_APP_API_URL}/api/class/${id}`)
+    .get(`${process.env.REACT_APP_API_URL}/api/class/${id}`)
     .then((res) => res.data.data),
 );
 
 const updateClass = createAsyncThunk('class/updateClass', (toSend) =>
   axios
-    .put(`${REACT_APP_API_URL}/api/class/${toSend.classId}`, {
+    .put(`${process.env.REACT_APP_API_URL}/api/class/${toSend.classId}`, {
       members: toSend.newClassMembers,
     })
     .then((res) => res.data.data),

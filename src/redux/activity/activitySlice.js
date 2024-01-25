@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { REACT_APP_API_URL } from '../../constants';
 
 const initialState = {
   loadingActivity: false,
@@ -9,7 +8,9 @@ const initialState = {
 };
 
 const fetchActivities = createAsyncThunk('activity/fetchActivities', () =>
-  axios.get(`${REACT_APP_API_URL}/api/activity`).then((res) => res.data.data),
+  axios
+    .get(`${process.env.REACT_APP_API_URL}/api/activity`)
+    .then((res) => res.data.data),
 );
 
 const activitiesSlice = createSlice({

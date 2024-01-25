@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { REACT_APP_API_URL } from '../../constants';
 
 const initialState = {
   loadingMember: false,
@@ -10,12 +9,14 @@ const initialState = {
 };
 
 const fetchMembers = createAsyncThunk('member/fetchMembers', () =>
-  axios.get(`${REACT_APP_API_URL}/api/member`).then((res) => res.data.data),
+  axios
+    .get(`${process.env.REACT_APP_API_URL}/api/member`)
+    .then((res) => res.data.data),
 );
 
 const fetchMemberById = createAsyncThunk('member/fetchMemberById', (id) =>
   axios
-    .get(`${REACT_APP_API_URL}/api/member/${id}`)
+    .get(`${process.env.REACT_APP_API_URL}/api/member/${id}`)
     .then((res) => res.data.data),
 );
 

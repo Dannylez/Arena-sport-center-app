@@ -1,9 +1,12 @@
 import axios from 'axios';
-import { REACT_APP_API_URL } from '../constants';
 
 const login = async (body) => {
   try {
-    const res = await axios.post(`${REACT_APP_API_URL}/api/auth/`, body);
+    console.log(process.env.REACT_APP_API_URL);
+    const res = await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/auth/`,
+      body,
+    );
     if (res.data) {
       localStorage.setItem('token', res.data?.message);
       return 'Sesión iniciada';
@@ -16,7 +19,7 @@ const login = async (body) => {
 
 const verifyToken = async (token) => {
   try {
-    const res = await axios.get(`${REACT_APP_API_URL}/api/auth/`, {
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/auth/`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return res;
