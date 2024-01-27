@@ -2,56 +2,54 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './list.module.css';
-import { fetchMembers } from '../../../redux/member/memberSlice';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Modal from '../../shared/modal';
-import { subscribeMember } from '../../../utils/member/subscribeMember';
+import Modal from '../../../shared/modal';
+import { fetchContracts } from '../../../../redux/contract/contractSlice';
 
-function MemberList() {
+function ContractList() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const { members } = useSelector((state) => state.member);
+  const { contracts } = useSelector((state) => state.contract);
   const { role } = useSelector((state) => state.auth);
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [filteredMembers, setFilteredMembers] = useState([]);
+
+  const [filteredContracts, setFilteredContracts] = useState([]);
   const [successModal, setSuccessModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
-    dispatch(fetchMembers());
-    if (role === 'ADMIN') {
-      setIsAdmin(true);
-    }
+    dispatch(fetchContracts());
   }, []);
 
   useEffect(() => {
-    const filtered = members.filter((member) => {
-      const memberInfo = `${member.firstName} ${member.lastName} ${member.phone}`;
-      const includesMemberInfo = memberInfo
+    const filtered = contracts.filter((contract) => {
+      const contractInfo = `${contract.name} ${contract.activity.name} ${contract.price}`;
+      const includesMemberInfo = contractInfo
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
       if (includesMemberInfo) {
         return true;
       }
-      const includesClass = member.classes.some((classy) =>
+      const includesContract = contract.classes.some((classy) =>
         classy.name.toLowerCase().includes(searchTerm.toLowerCase()),
       );
-      return includesClass;
+      return includesContract;
     });
-    setFilteredMembers(filtered);
-  }, [members, searchTerm]);
+    setFilteredContracts(filtered);
+  }, [contracts, searchTerm]);
 
   useEffect(() => {
     if (location.state?.message) {
+      setSuccessMessage(location.state?.message);
       setSuccessModal(true);
       setTimeout(async () => {
         setSuccessModal(false);
+        setSuccessMessage('');
       }, 3000);
     }
-  });
+  }, []);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -65,9 +63,9 @@ function MemberList() {
         onClose={() => setSuccessModal(false)}
         success
       >
-        {location.state?.message}
+        {successMessage}
       </Modal>
-      <h2 className={styles.titleList}>Lista de alumnos</h2>
+      <h2 className={styles.titleList}>Lista de profesores</h2>
       <div className={styles.list}>
         <div className={styles.divAdd}>
           <div className={styles.divSearch}>
@@ -80,7 +78,7 @@ function MemberList() {
               value={searchTerm}
             ></input>
           </div>
-          <Link to={'/members/form'} state={{ class: location.state?.class }}>
+          <Link to={'/contracts/form'}>
             <button className={styles.addBtn}>Agregar</button>
           </Link>
         </div>
@@ -90,38 +88,20 @@ function MemberList() {
               <th className={styles.th}>Nombre</th>
               <th className={styles.th}>Apellido</th>
               <th className={styles.th}>CI</th>
-              <th className={styles.thEmpty}></th>
             </tr>
           </thead>
           <tbody>
-            {filteredMembers.map((member) => (
+            {filteredContracts.map((contract) => (
               <tr
-                key={member?._id}
+                key={contract?._id}
                 className={styles.trList}
                 onClick={() =>
-                  navigate('./form', { state: { id: member?._id } })
+                  navigate('./form', { state: { id: contract?._id } })
                 }
               >
-                <td className={styles.td}>{member.firstName}</td>
-                <td className={styles.td}>{member.lastName}</td>
-                <td className={styles.td}>{member.ci}</td>
-                <td className={styles.addTd}>
-                  {location.state?.class ? (
-                    <Link to={'/schedule'}>
-                      <button
-                        className={styles.addBtn}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          subscribeMember(member, location.state?.class);
-                        }}
-                      >
-                        +
-                      </button>
-                    </Link>
-                  ) : (
-                    ''
-                  )}
-                </td>
+                <td className={styles.td}>{contract.firstName}</td>
+                <td className={styles.td}>{contract.lastName}</td>
+                <td className={styles.td}>{contract.ci}</td>
               </tr>
             ))}
           </tbody>
@@ -131,4 +111,4 @@ function MemberList() {
   );
 }
 
-export default MemberList;
+export default ContractList;

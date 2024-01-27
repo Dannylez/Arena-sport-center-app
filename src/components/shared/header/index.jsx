@@ -59,13 +59,13 @@ function Header(props) {
           <ul className={styles.ul}>
             {' '}
             <NavLink
+              className={styles.li}
               to={'/'}
               style={({ isActive }) => {
                 return isActive ? { color: 'red' } : {};
               }}
             >
               <li
-                className={styles.li}
                 onClick={() => {
                   closeMenu();
                 }}
@@ -74,13 +74,13 @@ function Header(props) {
               </li>
             </NavLink>
             <NavLink
+              className={styles.li}
               to={'/schedule'}
               style={({ isActive }) => {
                 return isActive ? { color: 'red' } : {};
               }}
             >
               <li
-                className={styles.li}
                 onClick={() => {
                   closeMenu();
                 }}
@@ -90,13 +90,13 @@ function Header(props) {
               </li>
             </NavLink>
             <NavLink
+              className={styles.li}
               to={'/members'}
               style={({ isActive }) => {
                 return isActive ? { color: 'red' } : {};
               }}
             >
               <li
-                className={styles.li}
                 onClick={() => {
                   closeMenu();
                 }}
@@ -106,13 +106,13 @@ function Header(props) {
               </li>
             </NavLink>
             <NavLink
+              className={styles.li}
               to={'/trainers'}
               style={({ isActive }) => {
                 return isActive ? { color: 'red' } : {};
               }}
             >
               <li
-                className={styles.li}
                 onClick={() => {
                   closeMenu();
                 }}
@@ -122,13 +122,13 @@ function Header(props) {
               </li>
             </NavLink>
             <NavLink
+              className={styles.li}
               to={'/contracts'}
               style={({ isActive }) => {
                 return isActive ? { color: 'red' } : {};
               }}
             >
               <li
-                className={styles.li}
                 onClick={() => {
                   closeMenu();
                 }}
@@ -157,13 +157,13 @@ function Header(props) {
           <ul className={styles.ul}>
             {' '}
             <NavLink
+              className={styles.li}
               to={'/'}
               style={({ isActive }) => {
                 return isActive ? { color: 'red' } : {};
               }}
             >
               <li
-                className={styles.li}
                 onClick={() => {
                   closeMenu();
                 }}
@@ -172,13 +172,13 @@ function Header(props) {
               </li>
             </NavLink>
             <NavLink
+              className={styles.li}
               to={'/schedule'}
               style={({ isActive }) => {
                 return isActive ? { color: 'red' } : {};
               }}
             >
               <li
-                className={styles.li}
                 onClick={() => {
                   closeMenu();
                 }}
@@ -188,13 +188,13 @@ function Header(props) {
               </li>
             </NavLink>
             <NavLink
+              className={styles.li}
               to={'/members'}
               style={({ isActive }) => {
                 return isActive ? { color: 'red' } : {};
               }}
             >
               <li
-                className={styles.li}
                 onClick={() => {
                   closeMenu();
                 }}
@@ -203,9 +203,8 @@ function Header(props) {
                 Alumnos{' '}
               </li>
             </NavLink>
-            <Link to={'/'}>
+            <Link to={'/'} className={styles.li}>
               <li
-                className={styles.li}
                 onClick={() => {
                   logout();
                   closeMenu();
@@ -223,13 +222,13 @@ function Header(props) {
         {!role ? (
           <ul className={styles.ul}>
             <NavLink
+              className={styles.li}
               to={'/'}
               style={({ isActive }) => {
                 return isActive ? { color: 'red' } : {};
               }}
             >
               <li
-                className={styles.li}
                 onClick={() => {
                   closeMenu();
                 }}
@@ -250,6 +249,7 @@ function Header(props) {
               Contacto
             </li>
             <NavLink
+              className={styles.li}
               to={'/login'}
               style={({ isActive }) => {
                 return isActive ? { color: 'red' } : {};
@@ -258,7 +258,6 @@ function Header(props) {
             >
               {' '}
               <li
-                className={styles.li}
                 onClick={() => {
                   closeMenu();
                 }}

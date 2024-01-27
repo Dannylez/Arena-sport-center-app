@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { fetchActivities } from '../../../redux/activity/activitySlice';
 import { fetchTrainers } from '../../../redux/trainer/trainerSlice';
 import createClass from '../../../utils/class/createClass';
+import editClass from '../../../utils/class/editClass';
 
 function ClassForm() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function ClassForm() {
   const [modalError, setModalError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [inputs, setInputs] = useState({});
+  const [onEdit, setOnEdit] = useState(false);
 
   const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
@@ -49,6 +51,7 @@ function ClassForm() {
     dispatch(fetchTrainers());
 
     if (location.state?.id) {
+      setOnEdit(true);
       const classy = classes.find((item) => item._id === location.state.id);
       const { _id, __v, members, ...newImput } = classy;
       setInputs(newImput);
@@ -65,9 +68,11 @@ function ClassForm() {
   }, [inputs]);
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
-      const res = await createClass(data);
+      let res;
+      !onEdit
+        ? (res = await createClass(data))
+        : (res = await editClass(location.state?.id, data));
       if (res.data) {
         navigate('/schedule', {
           state: { message: res.data.message },
@@ -83,7 +88,6 @@ function ClassForm() {
 
   return (
     <div className={styles.container}>
-      <img src='assets/warning.svg' alt='warning'></img>
       <h2 className={styles.titleForm}>Crear una clase</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.formField}>
@@ -111,10 +115,7 @@ function ClassForm() {
                 ? `${styles.error}`
                 : `${styles.error}  ${styles.hidden} `
             }
-          >
-            <img src='' alt='Warning Logo' />
-            <p>{errors.firstName?.message}</p>
-          </div>
+          ></div>
         </div>
         <div className={styles.formField}>
           <label className={styles.formLabel}>Dia:</label>

@@ -6,7 +6,7 @@ import { fetchClasses, fetchClassById } from '../../redux/class/classSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMemberById } from '../../redux/member/memberSlice';
 import Modal from '../shared/modal';
-import unsubscribeMember from '../../utils/member/unsubscribeMember';
+import { unsubscribeMember } from '../../utils/member/unsubscribeMember';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import deleteClass from '../../utils/class/deleteClass';
 import Loader from '../shared/loader';

@@ -4,12 +4,19 @@ import axios from 'axios';
 const initialState = {
   loadingTrainer: false,
   trainers: [],
+  trainer: {},
   errorTrainer: '',
 };
 
 const fetchTrainers = createAsyncThunk('trainer/fetchTrainers', () =>
   axios
     .get(`${process.env.REACT_APP_API_URL}/api/trainer`)
+    .then((res) => res.data.data),
+);
+
+const fetchTrainerById = createAsyncThunk('trainer/fetchMemberById', (id) =>
+  axios
+    .get(`${process.env.REACT_APP_API_URL}/api/trainer/${id}`)
     .then((res) => res.data.data),
 );
 
@@ -30,8 +37,20 @@ const trainersSlice = createSlice({
       state.trainers = [];
       state.errorTrainer = action.error.message;
     });
+    builder.addCase(fetchTrainerById.pending, (state) => {
+      state.loadingTrainer = true;
+    });
+    builder.addCase(fetchTrainerById.fulfilled, (state, action) => {
+      state.loadingTrainer = false;
+      state.trainer = action.payload;
+      state.errorTrainer = '';
+    });
+    builder.addCase(fetchTrainerById.rejected, (state, action) => {
+      state.loadingTrainer = false;
+      state.errorTrainer = action.error.message;
+    });
   },
 });
 
 export const { reducer: trainersReducer } = trainersSlice;
-export { fetchTrainers };
+export { fetchTrainers, fetchTrainerById };

@@ -5,26 +5,21 @@ import { useController, useForm } from 'react-hook-form';
 import Joi from 'joi';
 import Select from 'react-select';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { addYears, format, parse, subYears } from 'date-fns';
+import { addDays, format, parse, subYears } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchClasses } from '../../../redux/class/classSlice';
-import { fetchContracts } from '../../../redux/contract/contractSlice';
-import createMember from '../../../utils/member/createMember';
+import { fetchClasses } from '../../../../redux/class/classSlice';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Modal from '../../shared/modal';
-import { fetchMemberById } from '../../../redux/member/memberSlice';
-import editMember from '../../../utils/member/editMember';
+import Modal from '../../../shared/modal';
+import { fetchTrainerById } from '../../../../redux/trainer/trainerSlice';
+import editTrainer from '../../../../utils/trainer/editTrainer';
+import createTrainer from '../../../../utils/trainer/createTrainer';
 
-function MemberForm() {
+function TrainerForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { classes } = useSelector((state) => state.class);
-  const { contracts } = useSelector((state) => state.contract);
-  const { member } = useSelector((state) => state.member);
+  const { trainer } = useSelector((state) => state.trainer);
 
-  const [classesOptions, setClassesOptions] = useState([]);
-  const [contractsOptions, setContractsOptions] = useState([]);
   const [modalError, setModalError] = useState(false);
   const [messageError, setMessageError] = useState('');
   const [inputs, setInputs] = useState([]);
@@ -32,8 +27,7 @@ function MemberForm() {
 
   const maxBirthDay = format(subYears(new Date(), 3), 'yyyy-MM-dd');
   const minBirthDay = format(subYears(new Date(), 100), 'yyy-MM-dd');
-  const maxVigencyDate = format(addYears(new Date(), 10), 'yyy-MM-dd');
-  const minVigencyDate = format(new Date(), 'yyy-MM-dd');
+
   const createSchema = Joi.object({
     firstName: Joi.string()
       .required()
@@ -69,19 +63,26 @@ function MemberForm() {
         'string.empty': 'Campo obligatorio',
       }),
     phone: Joi.string()
+      .required()
       .min(7)
       .max(15)
-      .allow('')
       .pattern(/^[0-9]+$/)
       .messages({
         'string.pattern.base': 'Solo se aceptan números',
         'string.min': 'Debe contener al menos 7 números',
         'string.max': 'Número de teléfono demasiado largo',
+        'string.empty': 'Campo obligatorio',
       }),
     email: Joi.string()
-      .allow('')
+      .required()
       .pattern(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/)
-      .messages({ 'string.pattern.base': 'Formato de Email inválido' }),
+      .messages({
+        'string.pattern.base': 'Formato de Email inválido',
+        'string.empty': 'Campo obligatorio',
+      }),
+    password: Joi.string()
+      .required()
+      .messages({ 'string.empty': 'Campo obligatorio' }),
     birthDay: Joi.date().required().min(minBirthDay).max(maxBirthDay).messages({
       'string.empty': 'Campo obligatorio',
       'date.min': 'El alumno no puede tener mas de 100 años',
@@ -91,21 +92,13 @@ function MemberForm() {
       'string.min': 'Debe contener al menos 2 caracteres',
       'string.max': 'Debe contener menos de 25 caracteres',
     }),
-    healthCardUpToDate: Joi.boolean(),
-    healthCardVigency: Joi.date().allow('').min(minVigencyDate).messages({
-      'date.min': 'No ingresar carnets vencidos',
-    }),
-    classes: Joi.array().items(Joi.string()),
-    contracts: Joi.array().items(Joi.string()),
   });
 
   const {
     register,
     handleSubmit,
-    watch,
     setValue,
     onChange,
-    control,
     formState: { errors, touchedFields },
   } = useForm({
     mode: 'onChange',
@@ -119,27 +112,17 @@ function MemberForm() {
     return dateFormated;
   };
 
-  const watchAllFields = watch();
-
-  const {
-    field: { value: clase, onChange: onClassChange },
-  } = useController({ name: 'classes', control });
-
-  const {
-    field: { value: contract, onChange: onContractChange },
-  } = useController({ name: 'contracts', control });
-
   const onSubmit = async (data) => {
+    data.birthDay = addDays(data.birthDay, 1);
     data.birthDay = format(data.birthDay, 'dd/MM/yyyy');
-    data.healthCardVigency = format(data.healthCardVigency, 'dd/MM/yyyy');
     try {
       let res;
       onEdit
-        ? (res = await editMember(location.state?.id, data))
-        : (res = await createMember(data));
+        ? (res = await editTrainer(location.state?.id, data))
+        : (res = await createTrainer(data));
       if (res.data) {
-        navigate('/members', {
-          state: { message: res.data.message, class: location.state.class },
+        navigate('/trainers', {
+          state: { message: res.data.message },
         });
       } else {
         setMessageError(res);
@@ -152,91 +135,29 @@ function MemberForm() {
   const onError = (errors) => console.error(errors);
 
   useEffect(() => {
-    let orderedClasses = [...classes];
-
-    orderedClasses.sort((a, b) => {
-      const nameA = a.startsAt;
-      const nameB = b.startsAt;
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-      return 0;
-    });
-
-    setClassesOptions(
-      orderedClasses.map((clase) => ({
-        value: clase._id,
-        label: `${clase.activity?.name} (${clase.day.substring(0, 3)} ${
-          clase.startsAt
-        })`,
-      })),
-    );
-  }, [classes]);
-
-  useEffect(() => {
-    const activities = classes.filter((obj2) =>
-      watchAllFields.classes.some((obj1) => obj1.value === obj2._id),
-    );
-    const newContracts = contracts.filter((obj2) =>
-      activities.some((obj1) => obj1.activity?._id === obj2.activity?._id),
-    );
-    const setContracts = newContracts.map((cont) => ({
-      value: cont._id,
-      label: cont.name,
-    }));
-    setContractsOptions(setContracts);
-  }, [watchAllFields.classes]);
-
-  useEffect(() => {
-    dispatch(fetchClasses());
-    dispatch(fetchContracts());
     if (location.state?.id) {
       setOnEdit(true);
-      dispatch(fetchMemberById(location.state.id));
+      dispatch(fetchTrainerById(location.state.id));
     }
   }, []);
 
   useEffect(() => {
-    if (Object.keys(member).length !== 0 && location.state?.id) {
-      const { _id, __v, ...newImput } = member;
+    if (Object.keys(trainer).length !== 0 && location.state?.id) {
+      const { _id, __v, fee, feeHistory, ...newImput } = trainer;
       setInputs(newImput);
     }
-  }, [member]);
+  }, [trainer]);
 
   useEffect(() => {
     if (Object.keys(inputs).length !== 0 && location.state?.id) {
-      const classesId = inputs.classes?.map((item) => item._id);
-      const classesNew = classes.filter((clase) =>
-        classesId.includes(clase._id),
-      );
-      const finalClasses = classesNew.map((item) => ({
-        value: item._id,
-        label: `${item.activity?.name} (${item.day.substring(0, 3)} ${
-          item.startsAt
-        })`,
-      }));
-      const contractsId = inputs.contracts?.map((item) => item._id);
-      const contractsNew = contracts.filter((item) =>
-        contractsId.includes(item._id),
-      );
-      const finalContracts = contractsNew.map((item) => ({
-        value: item._id,
-        label: `${item.name}`,
-      }));
       setValue('firstName', inputs.firstName || '');
       setValue('lastName', inputs.lastName || '');
       setValue('ci', inputs.ci || '');
       setValue('phone', inputs.phone || '');
       setValue('email', inputs.email || '');
+      setValue('password', inputs.password || '');
       setValue('birthDay', formatDate(inputs.birthDay) || '');
       setValue('medService', inputs.medService || '');
-      setValue('healthCardUpToDate', inputs.healthCardUpToDate || false);
-      setValue('healthCardVigency', formatDate(inputs.healthCardVigency) || '');
-      setValue('classes', finalClasses || []);
-      setValue('contracts', finalContracts || []);
     }
   }, [inputs]);
 
@@ -261,7 +182,7 @@ function MemberForm() {
         <p className={styles.errorMsg}>Error: {messageError}</p>
       </Modal>
       <h2 className={styles.titleForm}>
-        {onEdit ? 'Editar alumno' : 'Agregar un alumno'}
+        {onEdit ? 'Editar profesor' : 'Agregar un profesor'}
       </h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit, onError)}>
         <div className={styles.formField}>
@@ -359,6 +280,30 @@ function MemberForm() {
             <p className={styles.errorMsg}>{errors.email?.message}</p>
           </div>
         </div>
+        {!onEdit ? (
+          <div className={styles.formField}>
+            <label className={styles.formLabel}>Password:</label>
+            <input
+              type='password'
+              className={styles.formInput}
+              name={'password'}
+              onChange={onChange}
+              {...register('password')}
+            ></input>
+            <div
+              className={
+                errors.password?.message && touchedFields.password
+                  ? `${styles.error}`
+                  : `${styles.error}  ${styles.hidden} `
+              }
+            >
+              <img src='/assets/logos/warning.svg' alt='Warning Logo' />
+              <p className={styles.errorMsg}>{errors.password?.message}</p>
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
         <div className={styles.formField}>
           <label className={styles.formLabel}>Fecha de nacimiento:</label>
           <input
@@ -398,77 +343,8 @@ function MemberForm() {
             <p className={styles.errorMsg}>{errors.medService?.message}</p>
           </div>
         </div>
-        <div className={styles.formField}>
-          <label className={styles.formLabel}>Carnet de salud:</label>
-          <input
-            name={'healthCardUpToDate'}
-            onChange={onChange}
-            {...register('healthCardUpToDate')}
-            type='checkbox'
-          ></input>
-          <input
-            className={styles.formInput}
-            name={'healthCardVigency'}
-            onChange={onChange}
-            {...register('healthCardVigency')}
-            type='date'
-          ></input>
-          <div
-            className={
-              errors.healthCardVigency?.message &&
-              touchedFields.healthCardVigency
-                ? `${styles.error}`
-                : `${styles.error}  ${styles.hidden} `
-            }
-          >
-            <img src='/assets/logos/warning.svg' alt='Warning Logo' />
-            <p className={styles.errorMsg}>
-              {errors.healthCardVigency?.message}
-            </p>
-          </div>
-        </div>
-        <div className={`${styles.formField} ${styles.selectField}`}>
-          <label className={styles.formLabel}>Clases:</label>
-          <Select
-            onChange={(e) => {
-              onClassChange(e);
-            }}
-            className={`${styles.formInput} ${styles.formSelect}`}
-            value={
-              !onEdit
-                ? classesOptions.find(
-                    (singleClass) => singleClass.value === clase,
-                  )
-                : clase
-            }
-            options={classesOptions}
-            isMulti
-          />
-        </div>
-        {watchAllFields.classes && watchAllFields.classes?.length !== 0 ? (
-          <div className={`${styles.formField} ${styles.selectField}`}>
-            <label className={styles.formLabel}>Contratos:</label>
-            <Select
-              onChange={(e) => {
-                onContractChange(e);
-              }}
-              className={`${styles.formInput} ${styles.formSelect}`}
-              value={
-                !onEdit
-                  ? contractsOptions.find(
-                      (singleClass) => singleClass.value === contract,
-                    )
-                  : contract
-              }
-              options={contractsOptions}
-              isMulti
-            />
-          </div>
-        ) : (
-          ''
-        )}
         <div className={styles.divBtns}>
-          <Link to={'/members'} state={location.state}>
+          <Link to={'/trainers'} state={location.state}>
             <button className={`${styles.cancelBtn} ${styles.btn}`}>
               Cancelar
             </button>
@@ -482,4 +358,4 @@ function MemberForm() {
   );
 }
 
-export default MemberForm;
+export default TrainerForm;

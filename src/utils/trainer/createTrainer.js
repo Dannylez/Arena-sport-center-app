@@ -1,21 +1,14 @@
 import axios from 'axios';
-import { addMember } from './subscribeMember';
 
-const createMember = async (member) => {
+const createTrainer = async (trainer) => {
   try {
     const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/api/member/`,
-      member,
+      `${process.env.REACT_APP_API_URL}/api/trainer/`,
+      trainer,
       {
         headers: { 'Content-Type': 'application/json' },
       },
     );
-    if (member.classes?.length !== 0) {
-      member.classes?.forEach((classy) => {
-        addMember(res.data.data, classy);
-      });
-      /* agregar al alumno al contrato */
-    }
     return res;
   } catch (error) {
     if (error.response) {
@@ -28,4 +21,4 @@ const createMember = async (member) => {
   }
 };
 
-export default createMember;
+export default createTrainer;

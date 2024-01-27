@@ -1,10 +1,21 @@
 import axios from 'axios';
 
 const addMember = async (member, classy) => {
-  const memberId = member._id;
-  const classId = classy._id;
-  const classMembers = [...classy.members, memberId];
   try {
+    let classId, classMembers;
+    if (Object.prototype.toString.call(classy) === '[object String]') {
+      const clase = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/class/${classy}`,
+      );
+      classId = clase.data.data._id;
+      classMembers = clase.data.data.members;
+      classMembers.push(member._id);
+    } else {
+      classId = classy._id;
+      classMembers = classy.members;
+      classMembers.push(member._id);
+    }
+
     await axios.put(`${process.env.REACT_APP_API_URL}/api/class/${classId}`, {
       members: classMembers,
     });
@@ -37,4 +48,4 @@ const subscribeMember = async (member, classy) => {
   }
 };
 
-export default subscribeMember;
+export { subscribeMember, addClass, addMember };

@@ -1,17 +1,24 @@
 import axios from 'axios';
+import removeClass from '../trainer/removeClass';
 import addClass from '../trainer/addClass';
 
-const createClass = async (classy) => {
+const editClass = async (id, classy) => {
   try {
-    const trainer = classy.trainer;
-    const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/api/class/`,
+    const oldClass = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/class/${id}`,
+    );
+    const res = await axios.put(
+      `${process.env.REACT_APP_API_URL}/api/class/${id}`,
       classy,
       {
         headers: { 'Content-Type': 'application/json' },
       },
     );
-    await addClass(trainer, res.data.data._id);
+    const newClass = res.data.data;
+    if (oldClass.data.data.trainer?._id !== newClass.trainer?._id) {
+      removeClass(oldClass.data.data.trainer?._id, id);
+      addClass(newClass.trainer?._id, id);
+    }
     return res;
   } catch (error) {
     if (error.response) {
@@ -27,4 +34,4 @@ const createClass = async (classy) => {
   }
 };
 
-export default createClass;
+export default editClass;

@@ -47,15 +47,7 @@ function Landing() {
         </div>
       </div>
       <div className={styles.containerCards}>
-        <div
-          className={styles.card}
-          onClick={() => {
-            window.open(
-              'https://wa.me/+59893638947?text=Quiero%20más%20información%20de%20Cross%20Funcional',
-              '_blank',
-            );
-          }}
-        >
+        <div className={styles.card}>
           <img
             className={styles.activityImg}
             src='assets/images/cross-funcional.jpg'
@@ -68,15 +60,7 @@ function Landing() {
             gimnasia, desbloquearás tu máximo potencial físico.
           </p>
         </div>
-        <div
-          className={styles.card}
-          onClick={() => {
-            window.open(
-              'https://wa.me/+59893638947?text=Quiero%20más%20información%20de%20Karate',
-              '_blank',
-            );
-          }}
-        >
+        <div className={styles.card}>
           <img
             className={styles.activityImg}
             src='assets/images/karate.jpg'
@@ -90,15 +74,7 @@ function Landing() {
             en el arte marcial japonés por excelencia!
           </p>
         </div>
-        <div
-          className={styles.card}
-          onClick={() => {
-            window.open(
-              'https://wa.me/+59893638947?text=Quiero%20más%20información%20de%20Zumba',
-              '_blank',
-            );
-          }}
-        >
+        <div className={styles.card}>
           <img
             className={styles.activityImg}
             src='assets/images/zumba.jpg'
@@ -111,15 +87,7 @@ function Landing() {
             entrenamiento único que te hará bailar y quemar calorías.
           </p>
         </div>
-        <div
-          className={styles.card}
-          onClick={() => {
-            window.open(
-              'https://wa.me/+59893638947?text=Quiero%20más%20información%20de%20Gimnasia%20Terapéutica',
-              '_blank',
-            );
-          }}
-        >
+        <div className={styles.card}>
           <img
             className={styles.activityImg}
             src='assets/images/gimnasia-terapeutica.jpg'
@@ -132,15 +100,7 @@ function Landing() {
             revitalizar tu bienestar. ¡Únete para sentirte mejor!
           </p>
         </div>
-        <div
-          className={styles.card}
-          onClick={() => {
-            window.open(
-              'https://wa.me/+59893638947?text=Quiero%20más%20información%20de%20Kick%20Boxing',
-              '_blank',
-            );
-          }}
-        >
+        <div className={styles.card}>
           <img
             className={styles.activityImg}
             src='assets/images/kick-boxing.jpg'

@@ -14,6 +14,8 @@ import Footer from './components/shared/footer';
 import { useDispatch } from 'react-redux';
 import { verifyUser } from './redux/auth/authSlice';
 import Loader from './components/shared/loader';
+import TrainerList from './components/admin/trainers/list';
+import TrainerForm from './components/admin/trainers/form';
 
 function App() {
   const location = useLocation();
@@ -38,7 +40,8 @@ function App() {
           <Route path='/class/form' element={<ClassForm />}></Route>
           <Route path='/members' element={<MemberList />} />
           <Route path='/members/form' element={<MemberForm />} />
-          <Route path='/trainer/profile' element={<TrainerProfile />} />
+          <Route path='/trainers' element={<TrainerList />} />
+          <Route path='/trainers/form' element={<TrainerForm />} />
           <Route path='/login' element={<Login />} />
           <Route path='/loader' element={<Loader />} />
         </Routes>

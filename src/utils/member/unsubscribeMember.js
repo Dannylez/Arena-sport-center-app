@@ -43,4 +43,4 @@ const unsubscribeMember = async (member, classy) => {
   }
 };
 
-export default unsubscribeMember;
+export { unsubscribeMember, removeMember, removeClass };
