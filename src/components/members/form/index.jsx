@@ -178,7 +178,7 @@ function MemberForm() {
 
   useEffect(() => {
     const activities = classes.filter((obj2) =>
-      watchAllFields.classes.some((obj1) => obj1.value === obj2._id),
+      watchAllFields.classes?.some((obj1) => obj1.value === obj2._id),
     );
     const newContracts = contracts.filter((obj2) =>
       activities.some((obj1) => obj1.activity?._id === obj2.activity?._id),

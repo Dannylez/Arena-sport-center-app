@@ -108,7 +108,7 @@ function Schedule() {
         <td
           key={`${day}-${hour}`}
           className={
-            isTrainer && classToShow.trainer._id === user
+            isTrainer && classToShow.trainer?._id === user
               ? `${styles.activeClass} ${styles.td}`
               : isTrainer && classToShow.trainer !== user
               ? `${styles.td} ${styles.inactiveClass}`

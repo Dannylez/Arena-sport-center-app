@@ -27,6 +27,7 @@ function Login() {
 
   const onSubmit = async (data) => {
     try {
+      data.email = data.email.toLowerCase();
       const res = await login(data);
       const token = localStorage.getItem('token');
       dispatch(verifyUser(token));
