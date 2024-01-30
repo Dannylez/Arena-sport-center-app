@@ -32,10 +32,6 @@ function ContractList() {
       if (includesMemberInfo) {
         return true;
       }
-      const includesContract = contract.classes.some((classy) =>
-        classy.name.toLowerCase().includes(searchTerm.toLowerCase()),
-      );
-      return includesContract;
     });
     setFilteredContracts(filtered);
   }, [contracts, searchTerm]);
@@ -65,7 +61,7 @@ function ContractList() {
       >
         {successMessage}
       </Modal>
-      <h2 className={styles.titleList}>Lista de profesores</h2>
+      <h2 className={styles.titleList}>Lista de contratos</h2>
       <div className={styles.list}>
         <div className={styles.divAdd}>
           <div className={styles.divSearch}>
@@ -82,30 +78,25 @@ function ContractList() {
             <button className={styles.addBtn}>Agregar</button>
           </Link>
         </div>
-        <table>
-          <thead>
-            <tr className={styles.trHead}>
-              <th className={styles.th}>Nombre</th>
-              <th className={styles.th}>Apellido</th>
-              <th className={styles.th}>CI</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredContracts.map((contract) => (
-              <tr
-                key={contract?._id}
-                className={styles.trList}
-                onClick={() =>
-                  navigate('./form', { state: { id: contract?._id } })
-                }
-              >
-                <td className={styles.td}>{contract.firstName}</td>
-                <td className={styles.td}>{contract.lastName}</td>
-                <td className={styles.td}>{contract.ci}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {filteredContracts.map((contract) => (
+          <div
+            key={contract?._id}
+            className={styles.card}
+            onClick={() => navigate('./form', { state: { id: contract?._id } })}
+          >
+            <h3 className={styles.contractInfo}>
+              {contract.name}({contract.activity.name})
+            </h3>
+            <p className={styles.contractP}>{contract.description}</p>
+            <p className={`${styles.contractP} ${styles.contractPrice}`}>
+              ${contract.price}
+            </p>
+
+            {/* <td className={styles.td}>{contract.name}</td>
+                <td className={styles.td}>{contract.activity.name}</td>
+                <td className={styles.td}>{contract.description}</td> */}
+          </div>
+        ))}
       </div>
     </div>
   );

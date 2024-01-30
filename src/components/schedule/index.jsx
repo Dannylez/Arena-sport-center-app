@@ -196,7 +196,7 @@ function Schedule() {
             {' '}
             <div className={styles.grilla}>{generateTable({ classes })}</div>
             <div
-              className={isAdmin ? `${styles.isAdmin}` : `${styles.notAdmin}`}
+              className={isAdmin ? `${styles.adminBtns}` : `${styles.notAdmin}`}
             >
               <Link to='/class/form'>
                 <button className={styles.newClassBtn}> Crear Clase</button>

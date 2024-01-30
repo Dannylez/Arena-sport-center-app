@@ -1,10 +1,10 @@
 .container {
   width: 98vw;
   color: white;
-  margin: 20px;
+  margin: auto;
   border-radius: 10px;
-  padding-bottom: 10px;
-  background-color: #444;
+  border: 1px solid #924b4b;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .list {
@@ -15,7 +15,7 @@
 
 .titleList {
   text-align: center;
-  color: red;
+  color: #924b4b;
 }
 
 .th {

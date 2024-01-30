@@ -362,7 +362,7 @@ function MemberForm() {
         <div className={styles.formField}>
           <label className={styles.formLabel}>Fecha de nacimiento:</label>
           <input
-            className={styles.formInput}
+            className={`${styles.formInput} ${styles.inputDate}`}
             name={'birthDay'}
             onChange={onChange}
             {...register('birthDay')}
@@ -407,7 +407,7 @@ function MemberForm() {
             type='checkbox'
           ></input>
           <input
-            className={styles.formInput}
+            className={`${styles.formInput} ${styles.inputDate}`}
             name={'healthCardVigency'}
             onChange={onChange}
             {...register('healthCardVigency')}

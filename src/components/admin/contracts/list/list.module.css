@@ -1,0 +1,98 @@
+.container {
+  width: 98vw;
+  color: white;
+  margin: 20px 0;
+  border-radius: 10px;
+  border: 1px solid #924b4b;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding-bottom: 35px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titleList {
+  text-align: center;
+  color: #924b4b;
+}
+
+.th {
+  text-align: start;
+  width: 20vw;
+}
+
+.trHead {
+  display: flex;
+  width: 90vw;
+  justify-content: space-between;
+  border-bottom: 1px solid white;
+  margin-bottom: 10px;
+}
+
+.td {
+  width: 20vw;
+  height: 30px;
+  padding: 10px 0px;
+}
+
+.addTd {
+  padding: 10px 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #d1c7c7;
+}
+
+.card:hover {
+  cursor: pointer;
+  box-shadow: 0 0 4px #924b4b;
+}
+
+.divAdd {
+  display: flex;
+  justify-content: space-between;
+  width: 90vw;
+  margin-bottom: 20px;
+}
+
+.divSearch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60vw;
+}
+
+.searchInput {
+  width: 40vw;
+  height: 20px;
+  border-radius: 5px;
+}
+
+.addBtn {
+  font-size: 12px;
+  background-color: palegreen;
+}
+
+.addBtn:hover {
+  background-color: rgb(208, 253, 208);
+}
+
+.contractInfo {
+  margin: 10px;
+}
+
+.contractP {
+  margin: 10px;
+}
+
+.contractPrice {
+  align-self: flex-end;
+}

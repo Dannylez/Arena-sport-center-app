@@ -16,6 +16,7 @@ import { verifyUser } from './redux/auth/authSlice';
 import Loader from './components/shared/loader';
 import TrainerList from './components/admin/trainers/list';
 import TrainerForm from './components/admin/trainers/form';
+import ContractList from './components/admin/contracts/list';
 
 function App() {
   const location = useLocation();
@@ -42,6 +43,7 @@ function App() {
           <Route path='/members/form' element={<MemberForm />} />
           <Route path='/trainers' element={<TrainerList />} />
           <Route path='/trainers/form' element={<TrainerForm />} />
+          <Route path='/contracts' element={<ContractList />} />
           <Route path='/login' element={<Login />} />
           <Route path='/loader' element={<Loader />} />
         </Routes>

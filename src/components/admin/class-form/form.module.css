@@ -4,22 +4,23 @@
   align-items: center;
   width: 98vw;
   color: white;
-  margin: 20px;
+  margin: auto;
   border-radius: 10px;
-  background-color: #444;
+  border: 1px solid #924b4b;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .titleForm {
   text-align: center;
-  color: red;
+  color: #924b4b;
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   justify-content: space-between;
   align-items: center;
-  height: 500px;
 }
 
 .formField {
@@ -28,7 +29,7 @@
   flex-wrap: wrap;
   align-items: center;
   width: 80vw;
-  height: 40px;
+  margin-bottom: 10px;
 }
 
 .selectField {
@@ -45,8 +46,8 @@
   color: black;
   border: 1px solid black;
   border-radius: 5px;
-  width: 40vw;
-  height: 20px;
+  width: 50vw;
+  height: 30px;
 }
 
 .formSelect {
@@ -64,7 +65,7 @@
 }
 
 .cancelBtn {
-  background-color: red;
+  background-color: #924b4b;
   color: white;
 }
 

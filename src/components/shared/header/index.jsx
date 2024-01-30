@@ -62,7 +62,7 @@ function Header(props) {
               className={styles.li}
               to={'/'}
               style={({ isActive }) => {
-                return isActive ? { color: 'red' } : {};
+                return isActive ? { color: '#924b4b' } : {};
               }}
             >
               <li
@@ -77,7 +77,7 @@ function Header(props) {
               className={styles.li}
               to={'/schedule'}
               style={({ isActive }) => {
-                return isActive ? { color: 'red' } : {};
+                return isActive ? { color: '#924b4b' } : {};
               }}
             >
               <li
@@ -93,7 +93,7 @@ function Header(props) {
               className={styles.li}
               to={'/members'}
               style={({ isActive }) => {
-                return isActive ? { color: 'red' } : {};
+                return isActive ? { color: '#924b4b' } : {};
               }}
             >
               <li
@@ -109,7 +109,7 @@ function Header(props) {
               className={styles.li}
               to={'/trainers'}
               style={({ isActive }) => {
-                return isActive ? { color: 'red' } : {};
+                return isActive ? { color: '#924b4b' } : {};
               }}
             >
               <li
@@ -125,7 +125,7 @@ function Header(props) {
               className={styles.li}
               to={'/contracts'}
               style={({ isActive }) => {
-                return isActive ? { color: 'red' } : {};
+                return isActive ? { color: '#924b4b' } : {};
               }}
             >
               <li
@@ -160,7 +160,7 @@ function Header(props) {
               className={styles.li}
               to={'/'}
               style={({ isActive }) => {
-                return isActive ? { color: 'red' } : {};
+                return isActive ? { color: '#924b4b' } : {};
               }}
             >
               <li
@@ -175,7 +175,7 @@ function Header(props) {
               className={styles.li}
               to={'/schedule'}
               style={({ isActive }) => {
-                return isActive ? { color: 'red' } : {};
+                return isActive ? { color: '#924b4b' } : {};
               }}
             >
               <li
@@ -191,7 +191,7 @@ function Header(props) {
               className={styles.li}
               to={'/members'}
               style={({ isActive }) => {
-                return isActive ? { color: 'red' } : {};
+                return isActive ? { color: '#924b4b' } : {};
               }}
             >
               <li
@@ -225,7 +225,7 @@ function Header(props) {
               className={styles.li}
               to={'/'}
               style={({ isActive }) => {
-                return isActive ? { color: 'red' } : {};
+                return isActive ? { color: '#924b4b' } : {};
               }}
             >
               <li
@@ -252,7 +252,7 @@ function Header(props) {
               className={styles.li}
               to={'/login'}
               style={({ isActive }) => {
-                return isActive ? { color: 'red' } : {};
+                return isActive ? { color: '#924b4b' } : {};
               }}
               g
             >

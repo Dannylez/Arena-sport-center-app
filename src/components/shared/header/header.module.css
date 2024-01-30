@@ -7,14 +7,14 @@
   align-items: center;
   height: 9.9vh;
   width: 90vw;
-  border-bottom: 0.1vh solid #ff0000;
+  border-bottom: 0.1vh solid #924b4b;
   padding: 0 5vw;
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
 }
 
 .active {
-  color: red;
+  color: #924b4b;
 }
 
 .menu {
@@ -60,7 +60,7 @@
 }
 
 .li:hover {
-  color: red;
+  color: #924b4b;
   cursor: pointer;
 }
 
@@ -105,7 +105,7 @@
 }
 
 .burgerMenuActive .burgerLine {
-  background-color: red;
+  background-color: #924b4b;
 }
 
 .noBurger {
@@ -114,8 +114,9 @@
 
 @media only screen and (min-width: 701px) {
   .header {
-    height: 70px;
+    height: 8vh;
     width: 90vw;
+    align-items: end;
   }
 
   .titulo {
@@ -134,7 +135,12 @@
   .burger {
     display: none;
   }
-  .header {
-    align-items: end;
+
+  .ul {
+    padding-bottom: 2vh;
+  }
+
+  .li {
+    font-size: 24px;
   }
 }

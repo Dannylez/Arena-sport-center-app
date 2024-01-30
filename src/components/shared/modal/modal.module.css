@@ -53,7 +53,7 @@
 }
 
 .modalError {
-  background-color: red;
+  background-color: #924b4b;
   min-height: 5vw;
   min-width: 20vw;
   max-width: 25vw;
@@ -80,7 +80,7 @@
 
 .closeBtn:hover,
 .previous:hover {
-  color: red;
+  color: #924b4b;
 }
 
 .closeBtn2:hover {

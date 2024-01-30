@@ -3,13 +3,13 @@ import styles from './footer.module.css';
 function Footer() {
   return (
     <div className={styles.footer}>
-      <div className={styles.address}>
-        <div
-          className={styles.back}
-          onClick={() => {
-            window.open('https://maps.app.goo.gl/zppDw1Bk8WsQ51zaA', '_blank');
-          }}
-        >
+      <div
+        className={styles.address}
+        onClick={() => {
+          window.open('https://maps.app.goo.gl/zppDw1Bk8WsQ51zaA', '_blank');
+        }}
+      >
+        <div className={styles.back}>
           <div className={`${styles.logo} ${styles.home}`}></div>
         </div>
         <p className={styles.pAddress}>Tomas Gomensoro 3109</p>

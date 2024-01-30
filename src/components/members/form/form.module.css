@@ -6,12 +6,14 @@
   color: white;
   margin: 20px;
   border-radius: 10px;
-  background-color: #444;
+  border: 1px solid #924b4b;
+  padding-bottom: 35px;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .titleForm {
   text-align: center;
-  color: red;
+  color: #924b4b;
 }
 
 .form {
@@ -64,7 +66,7 @@
 }
 
 .cancelBtn {
-  background-color: red;
+  background-color: #924b4b;
   color: white;
 }
 

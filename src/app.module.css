@@ -2,7 +2,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto;
   padding-top: 10vh;
   min-height: 80vh;
+  width: 100%;
+  margin: auto;
+  overflow-x: hidden;
+}
+
+@media only screen and (min-width: 701px) {
+  .principalContent {
+    padding-top: 8vh;
+  }
 }

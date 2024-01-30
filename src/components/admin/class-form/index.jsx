@@ -67,6 +67,15 @@ function ClassForm() {
     setValue('trainer', inputs.trainer?._id || '');
   }, [inputs]);
 
+  useEffect(() => {
+    if (modalError) {
+      setTimeout(async () => {
+        setModalError(false);
+        setErrorMessage('');
+      }, 3000);
+    }
+  }, [errorMessage]);
+
   const onSubmit = async (data) => {
     try {
       let res;
