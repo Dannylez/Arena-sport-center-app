@@ -9,6 +9,7 @@ import { fetchActivities } from '../../../redux/activity/activitySlice';
 import { fetchTrainers } from '../../../redux/trainer/trainerSlice';
 import createClass from '../../../utils/class/createClass';
 import editClass from '../../../utils/class/editClass';
+import { fetchClasses } from '../../../redux/class/classSlice';
 
 function ClassForm() {
   const dispatch = useDispatch();
@@ -49,22 +50,26 @@ function ClassForm() {
   useEffect(() => {
     dispatch(fetchActivities());
     dispatch(fetchTrainers());
-
-    if (location.state?.id) {
-      setOnEdit(true);
-      const classy = classes.find((item) => item._id === location.state.id);
-      const { _id, __v, members, ...newImput } = classy;
-      setInputs(newImput);
-    }
+    dispatch(fetchClasses());
   }, []);
 
   useEffect(() => {
-    setValue('activity', inputs.activity?._id || '');
-    setValue('day', inputs.day || '');
-    setValue('startsAt', inputs.startsAt || '');
-    setValue('endsAt', inputs.endsAt || '');
-    setValue('room', inputs.room || '');
-    setValue('trainer', inputs.trainer?._id || '');
+    if (location.state?.id) {
+      setOnEdit(true);
+      const classy = classes.find((item) => item._id === location.state.id);
+      setInputs(classy);
+    }
+  }, [classes]);
+
+  useEffect(() => {
+    if (inputs) {
+      setValue('activity', inputs.activity?._id || '');
+      setValue('day', inputs.day || '');
+      setValue('startsAt', inputs.startsAt || '');
+      setValue('endsAt', inputs.endsAt || '');
+      setValue('room', inputs.room || '');
+      setValue('trainer', inputs.trainer?._id || '');
+    }
   }, [inputs]);
 
   useEffect(() => {

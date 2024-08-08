@@ -1,6 +1,6 @@
 .container {
   width: 98vw;
-  color: white;
+  color: #999;
   margin: auto;
   border-radius: 10px;
   border: 1px solid #924b4b;
@@ -27,7 +27,7 @@
   display: flex;
   width: 90vw;
   justify-content: space-between;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #999;
   margin-bottom: 10px;
 }
 
@@ -75,7 +75,8 @@
 
 .addBtn {
   font-size: 12px;
-  background-color: palegreen;
+  background-color: #a5ec9a;
+  color: #444;
 }
 
 .addBtn:hover {

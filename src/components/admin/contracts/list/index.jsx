@@ -5,12 +5,14 @@ import styles from './list.module.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../../shared/modal';
 import { fetchContracts } from '../../../../redux/contract/contractSlice';
+import { fetchMembers } from '../../../../redux/member/memberSlice';
 
 function ContractList() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const { contracts } = useSelector((state) => state.contract);
+  const { members } = useSelector((state) => state.member);
   const { role } = useSelector((state) => state.auth);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -19,8 +21,18 @@ function ContractList() {
   const [successModal, setSuccessModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
+  const howManyMembers = (id) => {
+    if (members.length !== 0) {
+      const list = members.filter((member) =>
+        member.contracts.some((cont) => cont._id === id),
+      );
+      return list.length;
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchContracts());
+    dispatch(fetchMembers());
   }, []);
 
   useEffect(() => {
@@ -80,21 +92,18 @@ function ContractList() {
         </div>
         {filteredContracts.map((contract) => (
           <div
-            key={contract?._id}
+            key={contract._id}
             className={styles.card}
             onClick={() => navigate('./form', { state: { id: contract?._id } })}
           >
             <h3 className={styles.contractInfo}>
-              {contract.name}({contract.activity.name})
+              {contract.name}. ({contract.activity.name})
             </h3>
             <p className={styles.contractP}>{contract.description}</p>
-            <p className={`${styles.contractP} ${styles.contractPrice}`}>
-              ${contract.price}
-            </p>
-
-            {/* <td className={styles.td}>{contract.name}</td>
-                <td className={styles.td}>{contract.activity.name}</td>
-                <td className={styles.td}>{contract.description}</td> */}
+            <div className={styles.contractPInfo}>
+              <p>Alumnos: {howManyMembers(contract._id)}</p>
+              <p>${contract.price}</p>
+            </div>
           </div>
         ))}
       </div>

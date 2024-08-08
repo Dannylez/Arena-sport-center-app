@@ -29,32 +29,33 @@ function MemberList() {
 
   useEffect(() => {
     const filtered = members.filter((member) => {
-      const memberInfo = `${member.firstName} ${member.lastName} ${member.phone}`;
-      const includesMemberInfo = memberInfo
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
-      if (includesMemberInfo) {
-        return true;
-      }
+      const memberInfo = `${member.firstName} ${member.lastName} ${member.ci}`;
+      const includesMemberInfo = memberInfo.toLowerCase().includes(searchTerm);
       const includesClass = member.classes.some((classy) =>
-        classy.name.toLowerCase().includes(searchTerm.toLowerCase()),
+        classy.activity.name?.toLowerCase().includes(searchTerm),
       );
-      return includesClass;
+      return includesMemberInfo || includesClass;
     });
     setFilteredMembers(filtered);
   }, [members, searchTerm]);
 
   useEffect(() => {
     if (location.state?.message) {
+      setSuccessMessage(location.state?.message);
       setSuccessModal(true);
       setTimeout(async () => {
         setSuccessModal(false);
+        setSuccessMessage('');
       }, 3000);
     }
-  });
+  }, []);
 
   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
+    if (typeof e.target.value === 'string') {
+      setSearchTerm(e.target.value.toLowerCase());
+    } else {
+      setSearchTerm(e.target.value);
+    }
   };
 
   return (
@@ -65,7 +66,7 @@ function MemberList() {
         onClose={() => setSuccessModal(false)}
         success
       >
-        {location.state?.message}
+        {successMessage}
       </Modal>
       <h2 className={styles.titleList}>Lista de alumnos</h2>
       <div className={styles.list}>
@@ -107,17 +108,21 @@ function MemberList() {
                 <td className={styles.td}>{member.ci}</td>
                 <td className={styles.addTd}>
                   {location.state?.class ? (
-                    <Link to={'/schedule'}>
-                      <button
-                        className={styles.addBtn}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          subscribeMember(member, location.state?.class);
-                        }}
-                      >
-                        +
-                      </button>
-                    </Link>
+                    <button
+                      className={styles.addBtn}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        subscribeMember(member, location.state?.class);
+                        navigate('/schedule', {
+                          state: {
+                            class: location.state?.class,
+                            message: 'Alumno registrado',
+                          },
+                        });
+                      }}
+                    >
+                      +
+                    </button>
                   ) : (
                     ''
                   )}

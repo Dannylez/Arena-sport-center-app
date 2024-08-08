@@ -1,6 +1,6 @@
 .container {
-  width: 98vw;
-  color: white;
+  /* width: 98vw; */
+  color: #999;
   margin: 20px;
   border-radius: 10px;
   border: 1px solid #924b4b;
@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 70vw;
 }
 
 .titleList {
@@ -25,15 +26,13 @@
 }
 
 .trHead {
-  display: flex;
-  width: 90vw;
-  justify-content: space-between;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #999;
   margin-bottom: 10px;
 }
 
 .td {
   width: 20vw;
+  text-align: start;
   height: 30px;
   padding: 10px 0px;
 }
@@ -43,8 +42,6 @@
 }
 
 .trList {
-  display: flex;
-  justify-content: space-around;
   margin-bottom: 5px;
   border-radius: 10px;
   box-shadow: 1px 1px 2px #998b8b;
@@ -57,13 +54,13 @@
 .divAdd {
   display: flex;
   justify-content: space-between;
-  width: 90vw;
+  width: 60vw;
   margin-bottom: 20px;
 }
 
 .divSearch {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: 60vw;
 }
@@ -77,8 +74,39 @@
 .addBtn {
   font-size: 12px;
   background-color: palegreen;
+  color: #444;
 }
 
 .addBtn:hover {
   background-color: rgb(208, 253, 208);
+}
+
+@media only screen and (min-width: 1001px) {
+  .listMembers {
+    display: flex;
+  }
+
+  .list {
+    width: 50vw;
+  }
+
+  .divAdd {
+    display: flex;
+    justify-content: space-between;
+    width: 30vw;
+    margin-bottom: 20px;
+  }
+
+  .divSearch {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 30vw;
+  }
+
+  .searchInput {
+    width: 20vw;
+    height: 20px;
+    border-radius: 5px;
+  }
 }

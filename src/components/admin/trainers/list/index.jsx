@@ -5,6 +5,7 @@ import styles from './list.module.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../../shared/modal';
 import { fetchTrainers } from '../../../../redux/trainer/trainerSlice';
+import TrainerProfile from '../../../trainers/profile';
 
 function TrainerList() {
   const dispatch = useDispatch();
@@ -15,6 +16,8 @@ function TrainerList() {
 
   const [searchTerm, setSearchTerm] = useState('');
 
+  const [trainerModal, setTrainerModal] = useState(false);
+  const [trainerId, setTrainerId] = useState('');
   const [filteredTrainers, setFilteredTrainers] = useState([]);
   const [successModal, setSuccessModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
@@ -51,6 +54,10 @@ function TrainerList() {
     }
   }, []);
 
+  useEffect(() => {
+    console.log(trainerId);
+  }, []);
+
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -64,6 +71,13 @@ function TrainerList() {
         success
       >
         {successMessage}
+      </Modal>
+      <Modal
+        isOpen={trainerModal}
+        onClose={() => setTrainerModal(false)}
+        previous={() => setTrainerModal(false)}
+      >
+        <TrainerProfile id={trainerId} />
       </Modal>
       <h2 className={styles.titleList}>Lista de profesores</h2>
       <div className={styles.list}>
@@ -95,9 +109,10 @@ function TrainerList() {
               <tr
                 key={trainer?._id}
                 className={styles.trList}
-                onClick={() =>
-                  navigate('./form', { state: { id: trainer?._id } })
-                }
+                onClick={() => {
+                  setTrainerId(trainer?._id);
+                  setTrainerModal(true);
+                }}
               >
                 <td className={styles.td}>{trainer.firstName}</td>
                 <td className={styles.td}>{trainer.lastName}</td>

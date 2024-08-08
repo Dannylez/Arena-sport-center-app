@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   width: 98vw;
-  color: white;
+  color: #999;
   margin: auto;
   border-radius: 10px;
   border: 1px solid #924b4b;
@@ -48,6 +48,7 @@
   border-radius: 5px;
   width: 50vw;
   height: 30px;
+  background-color: #999;
 }
 
 .formSelect {
@@ -66,20 +67,22 @@
 
 .cancelBtn {
   background-color: #924b4b;
-  color: white;
+  color: #999;
 }
 
 .addBtn {
-  background-color: palegreen;
+  background-color: #a5ec9a;
+  color: #444;
 }
 
 .btn {
   width: 30vw;
   height: 40px;
+  color: #999;
 }
 
 .btn:hover {
-  box-shadow: 0 0 5px white;
+  box-shadow: 0 0 5px #999;
 }
 
 .error {

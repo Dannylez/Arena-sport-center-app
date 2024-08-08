@@ -9,11 +9,15 @@ const addMember = async (member, classy) => {
       );
       classId = clase.data.data._id;
       classMembers = clase.data.data.members;
-      classMembers.push(member._id);
+      if (!classMembers.includes(member._id)) {
+        classMembers.push(member._id);
+      }
     } else {
       classId = classy._id;
       classMembers = classy.members;
-      classMembers.push(member._id);
+      if (!classMembers.includes(member._id)) {
+        classMembers.push(member._id);
+      }
     }
 
     await axios.put(`${process.env.REACT_APP_API_URL}/api/class/${classId}`, {

@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import styles from './form.module.css';
-import { useController, useForm } from 'react-hook-form';
+import { Controller, useController, useForm } from 'react-hook-form';
 import Joi from 'joi';
 import Select from 'react-select';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { addYears, format, parse, subYears } from 'date-fns';
+import { addYears, format, parse, parseISO, subYears } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchClasses } from '../../../redux/class/classSlice';
 import { fetchContracts } from '../../../redux/contract/contractSlice';
@@ -25,6 +25,7 @@ function MemberForm() {
 
   const [classesOptions, setClassesOptions] = useState([]);
   const [contractsOptions, setContractsOptions] = useState([]);
+  const [activityOptions, setActivityOptions] = useState([]);
   const [modalError, setModalError] = useState(false);
   const [messageError, setMessageError] = useState('');
   const [inputs, setInputs] = useState([]);
@@ -95,8 +96,8 @@ function MemberForm() {
     healthCardVigency: Joi.date().allow('').min(minVigencyDate).messages({
       'date.min': 'No ingresar carnets vencidos',
     }),
-    classes: Joi.array().items(Joi.string()),
-    contracts: Joi.array().items(Joi.string()),
+    classes: Joi.array().items(),
+    contracts: Joi.any(),
   });
 
   const {
@@ -114,9 +115,11 @@ function MemberForm() {
   });
 
   const formatDate = (date) => {
-    const dateParsed = parse(date, 'dd/MM/yyyy', new Date());
-    const dateFormated = format(dateParsed, 'yyyy-MM-dd');
-    return dateFormated;
+    if (date) {
+      const dateParsed = parse(date, 'dd/MM/yyyy', new Date());
+      const dateFormated = format(dateParsed, 'yyyy-MM-dd');
+      return dateFormated;
+    }
   };
 
   const watchAllFields = watch();
@@ -130,8 +133,13 @@ function MemberForm() {
   } = useController({ name: 'contracts', control });
 
   const onSubmit = async (data) => {
+    data.contracts = Object.values(data.contracts);
     data.birthDay = format(data.birthDay, 'dd/MM/yyyy');
-    data.healthCardVigency = format(data.healthCardVigency, 'dd/MM/yyyy');
+    console.log(data);
+    if (data.healthCardVigency) {
+      data.healthCardVigency = format(data.healthCardVigency, 'dd/MM/yyyy');
+    }
+    data.classes = data.classes?.map((item) => item.value);
     try {
       let res;
       onEdit
@@ -149,7 +157,13 @@ function MemberForm() {
     }
   };
 
-  const onError = (errors) => console.error(errors);
+  const onError = (errors) => {
+    console.error(errors);
+  };
+
+  /*   useEffect(() => {
+    console.log(watchAllFields);
+  }, [watchAllFields]); */
 
   useEffect(() => {
     let orderedClasses = [...classes];
@@ -176,7 +190,7 @@ function MemberForm() {
     );
   }, [classes]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     const activities = classes.filter((obj2) =>
       watchAllFields.classes?.some((obj1) => obj1.value === obj2._id),
     );
@@ -188,6 +202,22 @@ function MemberForm() {
       label: cont.name,
     }));
     setContractsOptions(setContracts);
+  }, [watchAllFields.classes]); */
+
+  useEffect(() => {
+    const newClasses = classes
+      .filter((obj2) =>
+        watchAllFields.classes?.some((obj1) => obj1.value === obj2._id),
+      )
+      .map((obj) => obj.activity.name);
+    const setActivities = new Set(newClasses);
+    const activities = [...setActivities];
+    const newContracts = contracts.filter((obj2) =>
+      activities.some((obj1) => obj1 === obj2.activity?.name),
+    );
+    console.log('newContracts', newContracts);
+    setActivityOptions(activities);
+    setContractsOptions(newContracts);
   }, [watchAllFields.classes]);
 
   useEffect(() => {
@@ -218,14 +248,14 @@ function MemberForm() {
           item.startsAt
         })`,
       }));
-      const contractsId = inputs.contracts?.map((item) => item._id);
+      const contractsId = inputs.contracts?.map((item) => item._id); /*    
       const contractsNew = contracts.filter((item) =>
         contractsId.includes(item._id),
-      );
+      );   
       const finalContracts = contractsNew.map((item) => ({
         value: item._id,
         label: `${item.name}`,
-      }));
+      })); */
       setValue('firstName', inputs.firstName || '');
       setValue('lastName', inputs.lastName || '');
       setValue('ci', inputs.ci || '');
@@ -236,7 +266,7 @@ function MemberForm() {
       setValue('healthCardUpToDate', inputs.healthCardUpToDate || false);
       setValue('healthCardVigency', formatDate(inputs.healthCardVigency) || '');
       setValue('classes', finalClasses || []);
-      setValue('contracts', finalContracts || []);
+      setValue('contracts', contractsId || []);
     }
   }, [inputs]);
 
@@ -433,6 +463,7 @@ function MemberForm() {
             onChange={(e) => {
               onClassChange(e);
             }}
+            /* onChange={(val) => onClassChange(val.map((c) => c.value))} */
             className={`${styles.formInput} ${styles.formSelect}`}
             value={
               !onEdit
@@ -444,8 +475,23 @@ function MemberForm() {
             options={classesOptions}
             isMulti
           />
+          {/* <Select
+            onChange={(selectedOptions) => {
+              // Extraer los valores 'value' de las opciones seleccionadas
+              const selectedValues = selectedOptions.map(
+                (option) => option.value,
+              );
+              onClassChange(selectedValues);
+            }}
+            className={`${styles.formInput} ${styles.formSelect}`}
+            value={classesOptions.filter((opt) => classes.includes(opt.value))}
+            options={classesOptions}
+            isMulti
+            getOptionValue={(option) => option.value} // Agregar esta línea
+            getOptionLabel={(option) => option.label} // Agregar esta línea
+          /> */}
         </div>
-        {watchAllFields.classes && watchAllFields.classes?.length !== 0 ? (
+        {/* {watchAllFields.classes && watchAllFields.classes?.length !== 0 ? (
           <div className={`${styles.formField} ${styles.selectField}`}>
             <label className={styles.formLabel}>Contratos:</label>
             <Select
@@ -466,7 +512,72 @@ function MemberForm() {
           </div>
         ) : (
           ''
-        )}
+        )} */}
+        <div>
+          <Controller
+            name='contracts'
+            control={control}
+            defaultValue={{}}
+            render={({ field }) => (
+              <div>
+                {activityOptions.map((clase) => (
+                  <div
+                    key={clase}
+                    className={`${styles.formField} ${styles.selectField}`}
+                  >
+                    <label
+                      className={styles.formLabel}
+                    >{`Contrato de ${clase}`}</label>
+                    <select
+                      {...register(`contracts.${clase}`)}
+                      className={`${styles.formSelect} ${styles.formInputCont}`}
+                    >
+                      <option>Seleccione...</option>;
+                      {contractsOptions.map((cont) => {
+                        if (cont.activity.name === clase) {
+                          return (
+                            <option key={cont._id} value={cont._id}>
+                              {cont.name}
+                            </option>
+                          );
+                        } else {
+                          return null;
+                        }
+                      })}
+                    </select>
+                  </div>
+                ))}
+              </div>
+            )}
+          />
+          {/* <Controller name='contracts' control={control} defaultValue={[]} render={({field}) =>({activityOptions.map((clase) => (
+              <div
+                key={clase}
+                className={`${styles.formField} ${styles.selectField}`}
+              >
+                <label className={styles.formLabel}>Contrato de {clase}</label>
+                <select
+                  {...register('contracts')}
+                  className={`${styles.formSelect} ${styles.formInputCont}`}
+                >
+                  {contractsOptions.map((cont) => {
+                    if (cont.activity.name === clase) {
+                      return (
+                        <option key={cont._id} value={cont._id}>
+                          {cont.name}
+                        </option>
+                      );
+                    } else {
+                      return '';
+                    }
+                  })}
+                </select>{' '}
+              </div>
+            ))})}>
+            
+          </Controller> */}
+        </div>
+
         <div className={styles.divBtns}>
           <Link to={'/members'} state={location.state}>
             <button className={`${styles.cancelBtn} ${styles.btn}`}>

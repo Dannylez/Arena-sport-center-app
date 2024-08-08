@@ -1,0 +1,126 @@
+Date : 2024-02-03 15:03:51
+Directory : c:\Users\Danny\Desktop\arenas-gym\app\src
+Total : 61 files,  4737 codes, 82 comments, 471 blanks, all 5290 lines
+
+Languages
++----------------+------------+------------+------------+------------+------------+
+| language       | files      | code       | comment    | blank      | total      |
++----------------+------------+------------+------------+------------+------------+
+| JavaScript JSX |         19 |      2,705 |         41 |        156 |      2,902 |
+| CSS            |         19 |      1,300 |          7 |        222 |      1,529 |
+| JavaScript     |         23 |        732 |         34 |         93 |        859 |
++----------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                            | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                               |         61 |      4,737 |         82 |        471 |      5,290 |
+| . (Files)                                                                                       |          5 |        135 |          1 |         18 |        154 |
+| components                                                                                      |         34 |      3,886 |         47 |        362 |      4,295 |
+| components\admin                                                                                |         12 |      1,468 |         19 |        145 |      1,632 |
+| components\admin\class-form                                                                     |          2 |        371 |          5 |         30 |        406 |
+| components\admin\contracts                                                                      |          4 |        487 |         12 |         58 |        557 |
+| components\admin\contracts\form                                                                 |          2 |        299 |         11 |         30 |        340 |
+| components\admin\contracts\list                                                                 |          2 |        188 |          1 |         28 |        217 |
+| components\admin\trainers                                                                       |          6 |        610 |          2 |         57 |        669 |
+| components\admin\trainers\form                                                                  |          2 |        436 |          1 |         31 |        468 |
+| components\admin\trainers\list                                                                  |          2 |        174 |          1 |         24 |        199 |
+| components\admin\trainers\profile                                                               |          2 |          0 |          0 |          2 |          2 |
+| components\landing                                                                              |          2 |        194 |          1 |         16 |        211 |
+| components\login                                                                                |          2 |        163 |          1 |         19 |        183 |
+| components\members                                                                              |          4 |        764 |         21 |         61 |        846 |
+| components\members\form                                                                         |          2 |        563 |         20 |         38 |        621 |
+| components\members\list                                                                         |          2 |        201 |          1 |         23 |        225 |
+| components\schedule                                                                             |          2 |        596 |          1 |         49 |        646 |
+| components\shared                                                                               |          8 |        691 |          4 |         64 |        759 |
+| components\shared\footer                                                                        |          2 |        122 |          0 |         15 |        137 |
+| components\shared\header                                                                        |          2 |        411 |          1 |         28 |        440 |
+| components\shared\loader                                                                        |          2 |         32 |          3 |          6 |         41 |
+| components\shared\modal                                                                         |          2 |        126 |          0 |         15 |        141 |
+| components\trainers                                                                             |          4 |         10 |          0 |          8 |         18 |
+| components\trainers\form                                                                        |          2 |          5 |          0 |          4 |          9 |
+| components\trainers\profile                                                                     |          2 |          5 |          0 |          4 |          9 |
+| redux                                                                                           |          7 |        301 |          0 |         37 |        338 |
+| redux (Files)                                                                                   |          1 |         18 |          0 |          3 |         21 |
+| redux\activity                                                                                  |          1 |         33 |          0 |          5 |         38 |
+| redux\auth                                                                                      |          1 |         45 |          0 |          5 |         50 |
+| redux\class                                                                                     |          1 |         70 |          0 |          7 |         77 |
+| redux\contract                                                                                  |          1 |         33 |          0 |          5 |         38 |
+| redux\member                                                                                    |          1 |         51 |          0 |          6 |         57 |
+| redux\trainer                                                                                   |          1 |         51 |          0 |          6 |         57 |
+| utils                                                                                           |         15 |        415 |         34 |         54 |        503 |
+| utils (Files)                                                                                   |          1 |         30 |          0 |          5 |         35 |
+| utils\class                                                                                     |          4 |         90 |         26 |         13 |        129 |
+| utils\contract                                                                                  |          2 |         44 |          6 |          6 |         56 |
+| utils\member                                                                                    |          4 |        161 |          2 |         18 |        181 |
+| utils\trainer                                                                                   |          4 |         90 |          0 |         12 |        102 |
++-------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| filename                                                                                        | language       | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| c:\Users\Danny\Desktop\arenas-gym\app\src\App.jsx                                               | JavaScript JSX |         53 |          1 |          5 |         59 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\app.module.css                                        | CSS            |         15 |          0 |          2 |         17 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\admin\class-form\form.module.css           | CSS            |         82 |          4 |         15 |        101 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\admin\class-form\index.jsx                 | JavaScript JSX |        289 |          1 |         15 |        305 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\admin\contracts\form\form.module.css       | CSS            |         99 |          0 |         17 |        116 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\admin\contracts\form\index.jsx             | JavaScript JSX |        200 |         11 |         13 |        224 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\admin\contracts\list\index.jsx             | JavaScript JSX |        103 |          1 |         11 |        115 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\admin\contracts\list\list.module.css       | CSS            |         85 |          0 |         17 |        102 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\admin\trainers\form\form.module.css        | CSS            |         90 |          0 |         16 |        106 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\admin\trainers\form\index.jsx              | JavaScript JSX |        346 |          1 |         15 |        362 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\admin\trainers\list\index.jsx              | JavaScript JSX |        104 |          1 |         10 |        115 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\admin\trainers\list\list.module.css        | CSS            |         70 |          0 |         14 |         84 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\admin\trainers\profile\index.jsx           | JavaScript JSX |          0 |          0 |          1 |          1 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\admin\trainers\profile\profile.modules.css | CSS            |          0 |          0 |          1 |          1 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\landing\index.jsx                          | JavaScript JSX |        116 |          1 |          6 |        123 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\landing\landing.module.css                 | CSS            |         78 |          0 |         10 |         88 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\login\index.jsx                            | JavaScript JSX |         90 |          1 |          7 |         98 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\login\login.module.css                     | CSS            |         73 |          0 |         12 |         85 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\members\form\form.module.css               | CSS            |         91 |          0 |         16 |        107 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\members\form\index.jsx                     | JavaScript JSX |        472 |         20 |         22 |        514 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\members\list\index.jsx                     | JavaScript JSX |        130 |          1 |          9 |        140 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\members\list\list.module.css               | CSS            |         71 |          0 |         14 |         85 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\schedule\index.jsx                         | JavaScript JSX |        393 |          1 |         17 |        411 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\schedule\schedule.module.css               | CSS            |        203 |          0 |         32 |        235 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\shared\footer\footer.module.css            | CSS            |         71 |          0 |         12 |         83 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\shared\footer\index.jsx                    | JavaScript JSX |         51 |          0 |          3 |         54 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\shared\header\header.module.css            | CSS            |        126 |          0 |         21 |        147 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\shared\header\index.jsx                    | JavaScript JSX |        285 |          1 |          7 |        293 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\shared\loader\index.jsx                    | JavaScript JSX |         14 |          0 |          3 |         17 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\shared\loader\loader.module.css            | CSS            |         18 |          3 |          3 |         24 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\shared\modal\index.jsx                     | JavaScript JSX |         44 |          0 |          4 |         48 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\shared\modal\modal.module.css              | CSS            |         82 |          0 |         11 |         93 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\trainers\form\form.module.css              | CSS            |          0 |          0 |          1 |          1 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\trainers\form\index.jsx                    | JavaScript JSX |          5 |          0 |          3 |          8 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\trainers\profile\index.jsx                 | JavaScript JSX |          5 |          0 |          3 |          8 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\components\trainers\profile\profile.module.css        | CSS            |          0 |          0 |          1 |          1 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\constants.jsx                                         | JavaScript JSX |          5 |          0 |          2 |          7 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\index.css                                             | CSS            |         46 |          0 |          7 |         53 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\index.js                                              | JavaScript     |         16 |          0 |          2 |         18 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\redux\activity\activitySlice.js                       | JavaScript     |         33 |          0 |          5 |         38 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\redux\auth\authSlice.js                               | JavaScript     |         45 |          0 |          5 |         50 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\redux\class\classSlice.js                             | JavaScript     |         70 |          0 |          7 |         77 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\redux\contract\contractSlice.js                       | JavaScript     |         33 |          0 |          5 |         38 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\redux\member\memberSlice.js                           | JavaScript     |         51 |          0 |          6 |         57 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\redux\store.js                                        | JavaScript     |         18 |          0 |          3 |         21 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\redux\trainer\trainerSlice.js                         | JavaScript     |         51 |          0 |          6 |         57 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\auth.js                                         | JavaScript     |         30 |          0 |          5 |         35 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\class\addTrainer.js                             | JavaScript     |         12 |         17 |          4 |         33 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\class\createClass.js                            | JavaScript     |         25 |          3 |          3 |         31 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\class\deleteClass.js                            | JavaScript     |         21 |          3 |          3 |         27 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\class\editClass.js                              | JavaScript     |         32 |          3 |          3 |         38 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\contract\createContract.js                      | JavaScript     |         22 |          3 |          3 |         28 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\contract\editContract.js                        | JavaScript     |         22 |          3 |          3 |         28 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\member\createMember.js                          | JavaScript     |         28 |          1 |          3 |         32 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\member\editMember.js                            | JavaScript     |         41 |          1 |          4 |         46 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\member\subscribeMember.js                       | JavaScript     |         50 |          0 |          6 |         56 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\member\unsubscribeMember.js                     | JavaScript     |         42 |          0 |          5 |         47 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\trainer\addClass.js                             | JavaScript     |         22 |          0 |          3 |         25 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\trainer\createTrainer.js                        | JavaScript     |         22 |          0 |          3 |         25 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\trainer\editTrainer.js                          | JavaScript     |         22 |          0 |          3 |         25 |
+| c:\Users\Danny\Desktop\arenas-gym\app\src\utils\trainer\removeClass.js                          | JavaScript     |         24 |          0 |          3 |         27 |
+| Total                                                                                           |                |      4,737 |         82 |        471 |      5,290 |
++-------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+

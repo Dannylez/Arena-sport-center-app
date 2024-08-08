@@ -1,16 +1,34 @@
-.principalContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 10vh;
-  min-height: 80vh;
+.allContent {
+  box-sizing: border-box;
   width: 100%;
   margin: auto;
   overflow-x: hidden;
+  overflow-y: hidden;
+  min-height: 100vh;
+}
+
+.header {
+  box-sizing: border-box;
+  height: 10vh;
+}
+
+.principalContent {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  min-height: 80vh;
+}
+
+.footer {
+  box-sizing: border-box;
+  height: 10vh;
+}
+
+.secondaryContent {
+  margin: auto;
 }
 
 @media only screen and (min-width: 701px) {
-  .principalContent {
-    padding-top: 8vh;
-  }
 }

@@ -1,0 +1,117 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 98vw;
+  color: #999;
+  margin: auto;
+  border-radius: 10px;
+  border: 1px solid #924b4b;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.titleForm {
+  text-align: center;
+  color: #924b4b;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.formField {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 80vw;
+  margin-bottom: 10px;
+}
+
+.formAreaField {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  gap: 10px;
+}
+
+.formArea {
+  border-radius: 5px;
+  width: 78vw;
+  height: 50px;
+}
+
+.selectField {
+  flex-wrap: wrap;
+  height: auto;
+}
+
+.formLabel {
+  flex: 1;
+}
+
+.formInput {
+  padding: 0;
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 50vw;
+  height: 30px;
+  background-color: #999;
+}
+
+.formSelect {
+  width: 80vw;
+  height: auto;
+}
+
+.divBtns {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
+  width: 70vw;
+  height: 50px;
+}
+
+.cancelBtn {
+  background-color: #924b4b;
+  color: #999;
+}
+
+.addBtn {
+  background-color: #a5ec9a;
+  color: #444;
+}
+
+.btn {
+  width: 30vw;
+  height: 40px;
+  color: #999;
+}
+
+.btn:hover {
+  box-shadow: 0 0 5px #999;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  min-width: 20vw;
+  margin: 0;
+  background-color: #999;
+  color: #f23f4285;
+  font-weight: bo;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+.hidden {
+  height: 30px;
+  visibility: hidden;
+}

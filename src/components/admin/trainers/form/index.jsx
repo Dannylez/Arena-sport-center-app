@@ -1,13 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import styles from './form.module.css';
-import { useController, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Joi from 'joi';
-import Select from 'react-select';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { addDays, format, parse, subYears } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchClasses } from '../../../../redux/class/classSlice';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../../shared/modal';
 import { fetchTrainerById } from '../../../../redux/trainer/trainerSlice';

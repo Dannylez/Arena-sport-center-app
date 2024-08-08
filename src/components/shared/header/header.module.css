@@ -10,7 +10,7 @@
   border-bottom: 0.1vh solid #924b4b;
   padding: 0 5vw;
   background-color: rgba(0, 0, 0, 0.8);
-  color: white;
+  color: #999;
 }
 
 .active {
@@ -51,6 +51,7 @@
   margin: 0;
   padding: 0;
   text-align: center;
+  width: 45vw;
 }
 
 .li {
@@ -74,7 +75,8 @@
 
 .titulo {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: center;
   width: 450px;
   height: 50px;
 }
@@ -95,7 +97,7 @@
   width: 35px;
   height: 4px;
   margin: 7px 7px;
-  background-color: white;
+  background-color: #999;
   border-radius: 3px;
   transition: 0.3s;
 }
@@ -112,28 +114,44 @@
   display: none;
 }
 
-@media only screen and (min-width: 701px) {
+@media only screen and (min-width: 601px) {
   .header {
-    height: 8vh;
+    height: 9.7vh;
     width: 90vw;
     align-items: end;
+    border-bottom: 0.4vh solid #924b4b;
   }
 
   .titulo {
-    height: 60px;
+    height: 10vh;
+    width: 60vw;
   }
 
   .logo {
-    width: 60px;
-    height: 60px;
+    width: 10vh;
+    height: 10vh;
   }
   .arena {
     display: block;
-    font-size: 40px;
+    font-size: 4vw;
     margin: 0;
   }
-  .burger {
-    display: none;
+  .burgerMenu {
+    width: 50px;
+    height: 40px;
+    position: relative;
+    bottom: 3vh;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .burgerLine {
+    width: 35px;
+    height: 4px;
+    margin: 7px 7px;
+    background-color: #999;
+    border-radius: 3px;
+    transition: 0.3s;
   }
 
   .ul {
@@ -142,5 +160,13 @@
 
   .li {
     font-size: 24px;
+  }
+}
+
+@media only screen and (min-width: 1001px) {
+  .arena {
+    display: block;
+    font-size: 3vw;
+    margin: 0;
   }
 }

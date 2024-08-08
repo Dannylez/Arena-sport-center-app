@@ -368,37 +368,39 @@ function Schedule() {
         onClose={() => setModalDeleteClass(false)}
         previous={() => setModalDeleteClass(false)}
       >
-        <div className={styles.titleDelete}>
-          <h2 className={styles.nombreClase}>Borrar Clase </h2>
-        </div>
-        <div>
-          <p className={styles.textDelete}>
-            {' '}
-            Seguro que quieres eliminar la clase de {
-              onlyClass.activity?.name
-            }{' '}
-            de los {onlyClass.day} a las {onlyClass.startsAt}?
-          </p>
-        </div>
-        <div>
-          <button
-            onClick={async () => {
-              try {
-                await deleteClass(onlyClass._id);
-                setSuccessMessage(
-                  `Se ha eliminado la clase de ${onlyClass.activity?.name} de los
+        <div className={styles.modalContent}>
+          <div className={styles.title}>
+            <h2 className={styles.nombreClase}>Borrar Clase </h2>
+          </div>
+          <div>
+            <p className={styles.textDelete}>
+              {' '}
+              Seguro que quieres eliminar la clase de {
+                onlyClass.activity?.name
+              }{' '}
+              de los {onlyClass.day} a las {onlyClass.startsAt}?
+            </p>
+          </div>
+          <div>
+            <button
+              onClick={async () => {
+                try {
+                  await deleteClass(onlyClass._id);
+                  setSuccessMessage(
+                    `Se ha eliminado la clase de ${onlyClass.activity?.name} de los
                   ${onlyClass.day} a las ${onlyClass.startsAt}`,
-                );
-                dispatch(fetchClasses());
-                setModalDeleteClass(false);
-              } catch (error) {
-                console.error('Error: ', error);
-              }
-            }}
-          >
-            Aceptar
-          </button>
-          <button onClick={() => setModalDeleteMember(false)}>Cancelar</button>
+                  );
+                  dispatch(fetchClasses());
+                  setModalDeleteClass(false);
+                } catch (error) {
+                  console.error('Error: ', error);
+                }
+              }}
+            >
+              Aceptar
+            </button>
+            <button onClick={() => setModalDeleteClass(false)}>Cancelar</button>
+          </div>
         </div>
       </Modal>
     </div>

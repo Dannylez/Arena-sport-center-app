@@ -40,14 +40,14 @@
   min-width: 20vw;
   min-height: 5vw;
   background-color: black;
-  color: white;
+  color: #999;
 }
 
 .modalSuccess {
-  background-color: palegreen;
+  background-color: #a5ec9ad8;
   min-height: 5vw;
   min-width: 20vw;
-  max-width: 25vw;
+  max-width: 50vw;
   color: black;
   letter-spacing: 0.5px;
 }
@@ -56,8 +56,8 @@
   background-color: #924b4b;
   min-height: 5vw;
   min-width: 20vw;
-  max-width: 25vw;
-  color: white;
+  max-width: 50vw;
+  color: #999;
   letter-spacing: 0.5px;
 }
 

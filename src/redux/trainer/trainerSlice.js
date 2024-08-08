@@ -14,7 +14,7 @@ const fetchTrainers = createAsyncThunk('trainer/fetchTrainers', () =>
     .then((res) => res.data.data),
 );
 
-const fetchTrainerById = createAsyncThunk('trainer/fetchMemberById', (id) =>
+const fetchTrainerById = createAsyncThunk('trainer/fetchTrainerById', (id) =>
   axios
     .get(`${process.env.REACT_APP_API_URL}/api/trainer/${id}`)
     .then((res) => res.data.data),

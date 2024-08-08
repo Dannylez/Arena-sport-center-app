@@ -16,7 +16,7 @@
   z-index: 1;
 }
 .grilla {
-  color: white;
+  color: #999;
   width: 100%;
   padding: 10px 0;
 }
@@ -54,7 +54,7 @@
   width: 5vw;
 }
 .activeClass {
-  background-color: rgba(152, 251, 152, 0.7);
+  background-color: #a5ec9a;
   text-align: center;
   border: 1px solid black;
 }
@@ -126,6 +126,7 @@
   height: 35px;
   width: 60px;
   cursor: pointer;
+  color: #999;
 }
 
 .removeBtn:hover {
@@ -148,7 +149,7 @@
 }
 
 .addBtn:hover {
-  background-color: palegreen;
+  background-color: #a5ec9a;
 }
 
 .alumnosBtn {
@@ -173,13 +174,13 @@
 
 .newClassBtn {
   width: 40vw;
-  background-color: palegreen;
+  background-color: #a5ec9a;
 }
 
 .deleteClassBtn {
   width: 40vw;
   background-color: #924b4b;
-  color: white;
+  color: #999;
 }
 
 .notAdmin {
@@ -188,7 +189,7 @@
 
 .deleteClass {
   background-color: rgba(255, 0, 0, 0.7);
-  color: white;
+  color: #999;
 }
 
 .activeClass:hover {
